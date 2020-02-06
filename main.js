@@ -1,3 +1,5 @@
-var jinho = new App()
+var table = document.querySelector('.table')
+var gTable = new GradeTable(table)
+var app = new App(gTable)
 
-jinho.start()
+app.start()
