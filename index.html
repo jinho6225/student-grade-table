@@ -5,25 +5,58 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
   <title>Student Grade Table</title>
 </head>
-<body class="container p-3">
+<body class="container my-5 mx-auto">
     <header class="row">
-      <h1 class="col">Student Grade Table</h1>
-      <h3 class="col">Average Grade<span class="badge badge-secondary"></span></h3>
+      <h1 class="col m-0 p-0 my-2">Student Grade Table</h1>
+      <h4 class="col text-right py-1 m-0 my-2">Average Grade<span class="badge badge-secondary"></span></h4>
     </header>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Course</th>
-          <th scope="col">Grade</th>
-        </tr>
-      </thead>
-      <tbody>
+    <main class="row">
+        <table class="table table-striped col-8 my-2">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Course</th>
+              <th scope="col">Grade</th>
+            </tr>
+          </thead>
+          <tbody>
 
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+
+        <div class="form col-4 py-3 px-2">
+          <form action="">
+          <h4>Add Grade</h4>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">@</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Student Name" name="name" aria-label="Username"
+              aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">@</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Student Course" name="course" aria-label="Username"
+              aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">@</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Student Grade" name="grade" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <p>
+          <button type="submit" class="btn btn-outline-dark">Add</button>
+          <button type="reset" class="btn btn-outline-dark">Cancel</button>
+          </p>
+          </form>
+        </div>
+    </main>
 
 
 
@@ -32,6 +65,7 @@
     <script src="./components/grade-table.js"></script>
     <script src="./components/app.js"></script>
     <script src="./components/page-header.js"></script>
+    <script src="./components/grade-form.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
