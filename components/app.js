@@ -11,6 +11,12 @@ class App {
   }
   handleGetGradesSuccess(grades) {
     this.gradeTable.updateGrades(grades)
+    var total = 0
+    for (let i = 0; i < grades.length; i++) {
+      total = total + grades[i].grade
+    }
+    var computedAvg = total / grades.length;
+    this.pageHeader.updateAverage(computedAvg)
   }
 
   getGrades() {
