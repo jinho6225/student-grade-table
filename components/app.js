@@ -41,7 +41,7 @@ class App {
       total = total + grades[i].grade
     }
     var computedAvg = total / grades.length;
-    this.pageHeader.updateAverage(computedAvg)
+    this.pageHeader.updateAverage(Math.round(computedAvg))
   }
 
   createGrade(name, course, grade) {

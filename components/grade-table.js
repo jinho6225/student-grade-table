@@ -33,16 +33,21 @@ class GradeTable {
     td2.textContent = data.course
     td3.textContent = data.grade
     var td4 = document.createElement('td')
-    td4.classList.add("text-center")
-    var btn = document.createElement('button')
-    btn.classList.add('btn', 'btn-danger')
-    btn.textContent = "DELETE"
-    td4.append(btn)
+    td4.classList.add("d-flex", "justify-content-around")
+
+    var i1 = document.createElement('i')
+    var i2 = document.createElement('i')
+    td4.append(i1)
+    td4.append(i2)
+    i1.classList.add('fas', 'fa-edit')
+    i2.classList.add('fas', 'fa-trash-alt')
+
+
     tr.appendChild(td1)
     tr.appendChild(td2)
     tr.appendChild(td3)
     tr.appendChild(td4)
-    btn.addEventListener('click', function() {
+    i2.addEventListener('click', function() {
       deleteGrade(data.id)
     })
     tbody.appendChild(tr)
