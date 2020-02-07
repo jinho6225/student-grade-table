@@ -24,12 +24,16 @@ class GradeTable {
     var tbody = this.tableElement.querySelector('tbody')
     var tr = document.createElement('tr')
     var td1 = document.createElement('td')
+    td1.classList.add("text-center")
     var td2 = document.createElement('td')
+    td2.classList.add("text-center")
     var td3 = document.createElement('td')
+    td3.classList.add("text-center")
     td1.textContent = data.name
     td2.textContent = data.course
     td3.textContent = data.grade
     var td4 = document.createElement('td')
+    td4.classList.add("text-center")
     var btn = document.createElement('button')
     btn.classList.add('btn', 'btn-danger')
     btn.textContent = "DELETE"
