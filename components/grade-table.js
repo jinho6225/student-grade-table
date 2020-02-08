@@ -8,13 +8,13 @@ class GradeTable {
     var tbody = this.tableElement.querySelector('tbody')
     tbody.textContent = ""
     if (grades.length === 0) {
-      this.noGradesElement.classList.remove('d-none')
+      document.querySelector('.nothing').classList.remove('d-none')
     } else {
       grades.forEach((e) => {
         this.renderGradeRow(e, this.deleteGrade)
       })
-    }
 
+    }
   }
   onDeleteClick(deleteGrade) {
     this.deleteGrade = deleteGrade;
@@ -34,22 +34,33 @@ class GradeTable {
     td3.textContent = data.grade
     var td4 = document.createElement('td')
     td4.classList.add("d-flex", "justify-content-around")
-
     var i1 = document.createElement('i')
     var i2 = document.createElement('i')
     td4.append(i1)
     td4.append(i2)
     i1.classList.add('fas', 'fa-edit')
     i2.classList.add('fas', 'fa-trash-alt')
-
-
     tr.appendChild(td1)
     tr.appendChild(td2)
     tr.appendChild(td3)
     tr.appendChild(td4)
+
     i2.addEventListener('click', function() {
       deleteGrade(data.id)
     })
+
+    i1.addEventListener('click', function() {
+      var a = Array.from(document.querySelector('form').children)
+      a[1].childNodes[1].value = data.id
+      a[2].childNodes[3].value = data.name
+      a[3].childNodes[3].value = data.course
+      a[4].childNodes[3].value = data.grade
+      a[5].classList.add("d-none")
+      document.querySelector('.btn-warning').classList.remove('d-none')
+    })
+
+
+
     tbody.appendChild(tr)
   }
 }

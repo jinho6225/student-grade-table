@@ -74,10 +74,41 @@ class App {
     })
   }
 
+  updateGrade(id, name, course, grade) {
+    $.ajax({
+      url: `http://sgt.lfzprototypes.com/api/grades/${id}`,
+      method:"PATCH",
+      headers:{"x-access-token":"dO5Ox6r1"},
+      data:{ "name": name,
+            "course": course,
+            "grade": grade}
+    })
+    console.log('hey')
+  }
+
+  updateBtn() {
+    var a = Array.from(document.querySelector('form').children)
+    var id  = Number(a[1].childNodes[1].value) // id
+    var name = a[2].childNodes[3].value // name
+    var course = a[3].childNodes[3].value // course
+    var grade = Number(a[4].childNodes[3].value) // point
+    this.updateGrade(id, name, course, grade)
+    this.getGrades()
+    document.querySelector('.btn-warning').classList.add('d-none')
+    document.querySelector('.btn-success').classList.remove('d-none')
+    a[1].childNodes[1].value = ""
+    a[2].childNodes[3].value = ""
+    a[3].childNodes[3].value = ""
+    a[4].childNodes[3].value = ""
+  }
+
   start() {
     this.getGrades()
     this.gradeForm.onSubmit(this.createGrade)
     this.gradeTable.onDeleteClick(this.deleteGrade)
   }
+
+
+
 
 }

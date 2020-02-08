@@ -5,6 +5,7 @@ class GradeForm {
     this.formElement.addEventListener('submit', this.handleSubmit)
     this.onSubmit = this.onSubmit.bind(this)
     this.createGrade;
+    this.updateGrade;
   }
 
   onSubmit(createGrade) {
@@ -20,4 +21,5 @@ class GradeForm {
     this.createGrade(name, course, grade)
     this.formElement.reset()
   }
+
 }
