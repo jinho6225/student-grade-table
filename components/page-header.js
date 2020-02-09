@@ -5,6 +5,10 @@ class PageHeader {
 
   updateAverage(newAverage) {
     var badge = this.headerElement.querySelector('.badge')
-    badge.textContent = newAverage
+    if (isNaN(newAverage)) {
+      badge.textContent = 0;
+    } else {
+      badge.textContent = newAverage
+    }
   }
 }
