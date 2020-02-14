@@ -1,76 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
   <title>Student Grade Table</title>
 </head>
+
 <body class="container my-5 mx-auto">
-    <header class="row">
-      <h1 class="col m-0 p-0 my-2">Student Grade Table</h1>
-      <h4 class="col text-right py-1 m-0 my-2">Average Grade<span class="badge badge-secondary"></span></h4>
-    </header>
-    <main class="row">
-        <table class="table table-striped col-8 my-2">
-          <thead>
-            <tr>
-              <th scope="col" class="text-center">Name</th>
-              <th scope="col" class="text-center">Course</th>
-              <th scope="col" class="text-center">Grade</th>
-              <th scope="col" class="text-center">Operations</th>
-            </tr>
-          </thead>
-          <tbody>
+  <header class="row">
+    <h1 class="col m-0 p-0 my-2">Student Grade Table</h1>
+    <h4 class="col text-right py-1 m-0 my-2">Average Grade<span class="badge badge-secondary"></span></h4>
+  </header>
+  <main class="row">
+    <table class="table table-striped col-8 my-2">
+      <thead>
+        <tr>
+          <th scope="col" class="text-center">Name</th>
+          <th scope="col" class="text-center">Course</th>
+          <th scope="col" class="text-center">Grade</th>
+          <th scope="col" class="text-center">Operations</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
 
-          </tbody>
+    </table>
 
-        </table>
-
-        <div class="form col-4 my-1 py-3 px-2">
-          <form action="">
-          <h4>Add Grade</h4>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-graduate"></i></span>
-            </div>
-            <input type="text" class="form-control" placeholder="Student Name" name="name" aria-label="Username"
-              aria-describedby="basic-addon1">
+    <div class="form col-4 my-1 py-3 px-2">
+      <form action="">
+        <h4>Add Grade</h4>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-graduate"></i></span>
           </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1"><i class="fas fa-book-open"></i></span>
-            </div>
-            <input type="text" class="form-control" placeholder="Student Course" name="course" aria-label="Username"
-              aria-describedby="basic-addon1">
+          <input type="text" class="form-control" placeholder="Student Name" name="name" aria-label="Username"
+            aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fas fa-book-open"></i></span>
           </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1"><i class="fas fa-graduation-cap"></i></span>
-            </div>
-            <input type="number" class="form-control" placeholder="Student Grade" name="grade" aria-label="Username" aria-describedby="basic-addon1">
+          <input type="text" class="form-control" placeholder="Student Course" name="course" aria-label="Username"
+            aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fas fa-graduation-cap"></i></span>
           </div>
-          <p>
+          <input type="number" class="form-control" placeholder="Student Grade" name="grade" aria-label="Username"
+            aria-describedby="basic-addon1" min="1" max="100">
+        </div>
+        <p>
           <button type="submit" class="btn btn-success">Add</button>
           <button type="reset" class="btn btn-dark">Cancel</button>
-          </p>
-          </form>
-        </div>
+        </p>
+      </form>
+    </div>
 
-      <h1 class="d-none p-3 mb-2 bg-danger text-white nothing">No Grades Recorded</h1>
-
-    </main>
-
+    <h1 class="d-none p-3 mb-2 bg-danger text-white nothing">No Grades Recorded</h1>
+  </main>
 
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="./components/grade-table.js"></script>
-    <script src="./components/app.js"></script>
-    <script src="./components/page-header.js"></script>
-    <script src="./components/grade-form.js"></script>
-    <script src="main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="./components/grade-table.js"></script>
+  <script src="./components/app.js"></script>
+  <script src="./components/page-header.js"></script>
+  <script src="./components/grade-form.js"></script>
+  <script src="main.js"></script>
 </body>
+
 </html>

@@ -17,15 +17,21 @@ class App {
     this.handleDeleteGradeSuccess = this.handleDeleteGradeSuccess.bind(this);
   }
   updateGrade(id, name, course, grade) {
-    $.ajax({
-    url: `http://sgt.lfzprototypes.com/api/grades/${id}`,
-    method:"PATCH",
-    headers:{"x-access-token":"dO5Ox6r1"},
-    data:{ "name": name,
-          "course": course,
-          "grade": grade},
-    success: this.handleUpdateGradeSuccess,
-    error: this.handleUpdateGradeError
+    const data = { name: name,
+                  course: course,
+                  grade: grade}
+    fetch(`http://localhost:3000/sgt/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      this.getGrades()
     })
   }
   handleUpdateGradeError(error) {
@@ -34,21 +40,56 @@ class App {
   handleUpdateGradeSuccess() {
     this.getGrades()
   }
+
   deleteGrade(id) {
-    $.ajax({
-    url: `http://sgt.lfzprototypes.com/api/grades/${id}`,
-    method:"DELETE",
-    headers:{"x-access-token":"dO5Ox6r1"},
-    success: this.handleCreateGradeSuccess,
-    error: this.handleCreateGradeError
+    fetch(`http://localhost:3000/sgt/${id}`, { method: 'DELETE' })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      this.getGrades()
     })
   }
-
   handleDeleteGradeError(error) {
     console.log(error)
   }
   handleDeleteGradeSuccess() {
     this.getGrades()
+  }
+
+  createGrade(name, course, grade) {
+    const data = { name: name,
+                  course: course,
+                  grade: grade}
+    fetch(`http://localhost:3000/sgt`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      this.getGrades()
+    })
+  }
+  handleCreateGradeError(error) {
+    console.log(error)
+  }
+  handleCreateGradeSuccess() {
+    this.getGrades()
+  }
+
+  getGrades() {
+    fetch(`http://localhost:3000/sgt`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      this.handleGetGradesSuccess(data)
+    });
   }
   handleGetGradesError(error) {
     console.log(error)
@@ -62,39 +103,11 @@ class App {
     var computedAvg = total / grades.length;
     this.pageHeader.updateAverage(Math.round(computedAvg))
   }
-  createGrade(name, course, grade) {
-    $.ajax({
-      url: "http://sgt.lfzprototypes.com/api/grades",
-      method:"POST",
-      headers:{"x-access-token":"dO5Ox6r1"},
-      data:{ "name": name,
-            "course": course,
-            "grade": grade},
-      success: this.handleCreateGradeSuccess,
-      error: this.handleCreateGradeError
-    })
-  }
 
-  handleCreateGradeError(error) {
-    console.log(error)
-  }
-  handleCreateGradeSuccess() {
-    this.getGrades()
-  }
-  getGrades() {
-    $.ajax({
-      url: "http://sgt.lfzprototypes.com/api/grades",
-      method:"GET",
-      headers:{"x-access-token":"dO5Ox6r1"},
-      success: this.handleGetGradesSuccess,
-      error: this.handleGetGradesError
-    })
-  }
   start() {
     this.getGrades()
     this.gradeForm.onSubmit(this.createGrade)
     this.gradeTable.onDeleteClick(this.deleteGrade)
     this.gradeTable.onUpdateClick(this.updateGrade)
   }
-
 }

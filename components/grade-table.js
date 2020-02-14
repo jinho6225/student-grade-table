@@ -86,10 +86,6 @@ class GradeTable {
       }
       updateGrade(data.id, obj[0], obj[1], obj[2])
     })
-
-
     tbody.appendChild(tr)
   }
-
-
 }

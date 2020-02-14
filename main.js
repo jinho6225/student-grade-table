@@ -6,5 +6,4 @@ var gForm = new GradeForm(form)
 var pHeader = new PageHeader(header)
 var gTable = new GradeTable(table)
 var app = new App(gTable, pHeader, gForm)
-
 app.start()
