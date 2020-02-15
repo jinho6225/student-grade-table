@@ -20,7 +20,7 @@ class App {
     const data = { name: name,
                   course: course,
                   grade: grade}
-    fetch(`http://localhost:3000/sgt/${id}`, {
+    fetch(`sgt/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ class App {
   }
 
   deleteGrade(id) {
-    fetch(`http://localhost:3000/sgt/${id}`, { method: 'DELETE' })
+    fetch(`sgt/${id}`, { method: 'DELETE' })
     .then((response) => {
       return response.json();
     })
@@ -61,7 +61,7 @@ class App {
     const data = { name: name,
                   course: course,
                   grade: grade}
-    fetch(`http://localhost:3000/sgt`, {
+    fetch(`sgt`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ class App {
   }
 
   getGrades() {
-    fetch(`http://localhost:3000/sgt`)
+    fetch(`sgt`)
     .then((response) => {
       return response.json();
     })

@@ -4,7 +4,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const router = require('./router.js')
 const path = require('path')
-const port = 3000
+const port = 3300;
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
