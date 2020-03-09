@@ -41,7 +41,10 @@
     "extends": [
       "plugin:react/recommended",
       "eslint:recommended",
-      "standard"
+      "eslint-config-prettier",
+      "plugin:prettier/recommended",
+      "standard",
+      "airbnb-base"
     ],
     "settings": {
       "react": {
