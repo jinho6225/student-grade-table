@@ -18,7 +18,8 @@ const controllers = {
       if (err) {
         res.status(400).send(err)
       } else {
-        res.status(200).send(result)
+        console.log(result)
+        res.status(201).json(result);
       }
     })
   },
