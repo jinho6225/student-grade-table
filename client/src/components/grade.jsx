@@ -1,7 +1,9 @@
 import React from 'react';
 
 const Grade = props => {
-  const { grade, deleteGrade } = props;
+  const {
+    grade, deleteGrade, editing, currentUpdating
+  } = props;
   return (
     <>
       <tr key={grade.id}>
@@ -12,7 +14,8 @@ const Grade = props => {
           <i
             className="fas fa-edit"
             onClick={() => {
-              alert('edit');
+              editing();
+              currentUpdating(grade);
             }}
           ></i>
           <span>&#160;&#160;&#160;&#160;</span>
