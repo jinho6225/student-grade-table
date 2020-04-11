@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 var mysql = require('mysql');
 
 var db = mysql.createConnection({
@@ -7,9 +9,9 @@ var db = mysql.createConnection({
   database: "sgt"
 });
 
-db.connect(function(err) {
+db.connect(function (err) {
   if (err) throw err;
-  console.log("Connected!");
+  console.log('Connected!');
 });
 
 module.exports = db;
