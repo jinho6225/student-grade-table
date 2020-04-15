@@ -2,12 +2,10 @@ import React from 'react';
 import Grade from './grade.jsx';
 
 const GradeTable = props => {
-  const {
-    grades, deleteGrade, editing, currentUpdating
-  } = props;
+  const { grades, deleteGrade, editing, currentUpdating } = props;
   return (
-    <div className="gradeTable col-8 col-11 order-1 col-lg-8 order-lg-1 ">
-      <table className="table table-striped">
+    <div className="col-12 order-2 col-md-8 order-md-1">
+      <table className="table">
         <thead>
           <tr>
             <th>Student Name</th>

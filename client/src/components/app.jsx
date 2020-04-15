@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './header.jsx';
+import Footer from './footer.jsx';
 import GradeTable from './grade-table.jsx';
 import GradeForm from './grade-form.jsx';
 
@@ -103,18 +104,16 @@ export default class App extends React.Component {
   render() {
     const { grades, isEditing, currentEditing } = this.state;
     return (
-      <div className="container">
+      <>
         <Header average={this.getAverageGrade()} />
-        <div className="row">
+        <main className="container d-flex flex-wrap justify-content-around py-5">
           <GradeTable
-            className="col-8"
             grades={grades}
             deleteGrade={this.deleteGrade}
             editing={this.editing}
             currentUpdating={this.currentUpdating}
           />
           <GradeForm
-            className="col-4"
             postGrade={this.postGrade}
             currentEditing={currentEditing}
             isEditing={isEditing}
@@ -122,8 +121,9 @@ export default class App extends React.Component {
             currentUpdating={this.currentUpdating}
             updateGrade={this.updateGrade}
           />
-        </div>
-      </div>
+        </main>
+        <Footer />
+      </>
     );
   }
 }
