@@ -68,8 +68,8 @@ class GradeForm extends Component {
   render() {
     const { isEditing } = this.props;
     return (
-      <div className="gradeForm col-3 col-11 order-2 col-lg-4 order-lg-2 ">
-        <h3 className="mb-3">Add Grade</h3>
+      <div className="col-12 order-1 col-md-4 order-md-2">
+        <h5 className="">{isEditing ? 'Update Grade' : 'Add Grade'}</h5>
         <div>
           <form onSubmit={this.handleSubmit}>
             <div className="input-group mb-3">
