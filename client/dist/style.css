@@ -6,11 +6,12 @@ main {
   min-height: 60vh; }
 
 h3,
-h4 {
+h4,
+h5 {
   margin: 0; }
 
 .badge {
-  font-size: 1.2rem; }
+  font-size: 1.1rem; }
 
 .operatorIcon {
   transition: transform 0.3s; }

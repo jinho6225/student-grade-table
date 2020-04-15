@@ -101,6 +101,18 @@ export default class App extends React.Component {
       .then(grades => this.setState({ grades }));
   }
 
+  // getGradeByName() {
+  //   fetch('/sgt/name')
+  //     .then(res => res.json())
+  //     .then(grades => this.setState({ grades }));
+  // }
+
+  // getGradeByCourse() {
+  //   fetch('/sgt/course')
+  //     .then(res => res.json())
+  //     .then(grades => this.setState({ grades }));
+  // }
+
   render() {
     const { grades, isEditing, currentEditing } = this.state;
     return (

@@ -11,7 +11,7 @@ const Header = props => {
         </div>
 
         <div className="py-2 col-12 order-2 col-md-4 order-md-2 d-flex align-items-center justify-content-md-end justify-content-center">
-          <h4 className="">Average Grade</h4>
+          <h5 className="">Average Grade</h5>
           &#160;
           <span className="badge badge-secondary ">
             {isNaN(average) ? 'N/A' : average}

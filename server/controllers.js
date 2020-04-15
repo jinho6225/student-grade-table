@@ -48,6 +48,26 @@ const controllers = {
       }
     });
   }
+  // getAllByName: (req, res) => {
+  //   const qry = 'select * from sgt order by name';
+  //   db.query(qry, (err, result) => {
+  //     if (err) {
+  //       res.status(400).send(err);
+  //     } else {
+  //       res.status(200).send(result);
+  //     }
+  //   });
+  // },
+  // getAllByCourse: (req, res) => {
+  //   const qry = 'select * from sgt order by course';
+  //   db.query(qry, (err, result) => {
+  //     if (err) {
+  //       res.status(400).send(err);
+  //     } else {
+  //       res.status(200).send(result);
+  //     }
+  //   });
+  // }
 };
 
 module.exports = controllers;
