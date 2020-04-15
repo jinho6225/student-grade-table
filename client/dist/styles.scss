@@ -17,10 +17,14 @@ h5 {
   font-size: 1.1rem;
 }
 
-.operatorIcon {
+.operatorIcon,
+.name,
+.course {
   transition: transform 0.3s;
 }
-.operatorIcon:hover {
+.operatorIcon:hover,
+.name:hover,
+.course:hover {
   color: darkcyan;
   transform: scale(1.2);
   cursor: pointer;

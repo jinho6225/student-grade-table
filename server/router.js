@@ -12,7 +12,7 @@ router
   .delete(controllers.deleteOne)
   .put(controllers.updateOne);
 
-// router.route('/sgt/name').get(controllers.getAllByName);
-// router.route('/sgt/course').get(controllers.getAllByCourse);
+router.route('/sgt/name').get(controllers.getAllByName);
+router.route('/sgt/course').get(controllers.getAllByCourse);
 
 module.exports = router;

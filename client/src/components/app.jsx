@@ -18,6 +18,24 @@ export default class App extends React.Component {
     this.updateGrade = this.updateGrade.bind(this);
     this.currentUpdating = this.currentUpdating.bind(this);
     this.editing = this.editing.bind(this);
+    this.getGradeByName = this.getGradeByName.bind(this);
+    this.getGradeByCourse = this.getGradeByCourse.bind(this);
+  }
+
+  getGradeByCourse() {
+    fetch('/sgt/course')
+      .then(res => res.json())
+      .then(grades => {
+        this.setState({ grades });
+      });
+  }
+
+  getGradeByName() {
+    fetch('/sgt/name')
+      .then(res => res.json())
+      .then(grades => {
+        this.setState({ grades });
+      });
   }
 
   editing() {
@@ -101,18 +119,6 @@ export default class App extends React.Component {
       .then(grades => this.setState({ grades }));
   }
 
-  // getGradeByName() {
-  //   fetch('/sgt/name')
-  //     .then(res => res.json())
-  //     .then(grades => this.setState({ grades }));
-  // }
-
-  // getGradeByCourse() {
-  //   fetch('/sgt/course')
-  //     .then(res => res.json())
-  //     .then(grades => this.setState({ grades }));
-  // }
-
   render() {
     const { grades, isEditing, currentEditing } = this.state;
     return (
@@ -124,6 +130,8 @@ export default class App extends React.Component {
             deleteGrade={this.deleteGrade}
             editing={this.editing}
             currentUpdating={this.currentUpdating}
+            getGradeByName={this.getGradeByName}
+            getGradeByCourse={this.getGradeByCourse}
           />
           <GradeForm
             postGrade={this.postGrade}
