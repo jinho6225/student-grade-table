@@ -1,22 +1,29 @@
-import React from 'react'
+import React from 'react';
 
-const Header = (props) => {
-  const { average } = props
+const Header = props => {
+  const { average, getGrade } = props;
 
   return (
-    <div className="row d-flex justify-content-between align-items-center">
-      <div className="d-flex justify-content-lg-start justify-content-md-center justify-content-sm-center justify-content-center col col-11 order-1 col-lg-8 order-lg-1">
-        <h1>Student Grade Table</h1>
-      </div>
-      <div className="d-flex justify-content-lg-end justify-content-md-center justify-content-sm-center justify-content-center col col-11 order-2 col-lg-4 order-lg-2">
-        <h4 className="d-flex align-items-center">
-          <span className="mr-2">Average Grade</span>
-          <span className="badge badge-secondary ">{isNaN(average) ? 'N/A' : average}</span>
-        </h4>
+    <div className="bgBlue sticky-top py-4">
+      <div className="container d-flex flex-wrap align-items-center justify-content-between">
+        <div className="py-2 col-12 order-1 col-md-8 order-md-1 d-flex justify-content-md-start justify-content-center">
+          <h3 className="name"
+        onClick={() => {
+          getGrade()
+        }}>
+        🗄 Grade Table</h3>
+        </div>
+
+        <div className="py-2 col-12 order-2 col-md-4 order-md-2 d-flex align-items-center justify-content-md-end justify-content-center">
+          <h5 className="">Average Grade</h5>
+          &#160;
+          <span className="badge badge-secondary ">
+            {isNaN(average) ? 'N/A' : average}
+          </span>
+        </div>
       </div>
     </div>
-
-  )
-}
+  );
+};
 
 export default Header;

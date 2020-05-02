@@ -1,26 +1,41 @@
 import React from 'react';
 
-const Grade = props => {
+const Grade = (props) => {
   const {
-    grade, deleteGrade, editing, currentUpdating
-  } = props;
+  grade,
+  deleteGrade,
+  editing,
+  currentUpdating,
+  getOneByName,
+  getOneByCourse } = props;
   return (
     <>
       <tr key={grade.id}>
-        <td>{grade.name}</td>
-        <td>{grade.course}</td>
+        <td
+        className="name"
+        onClick={() => {
+          getOneByName(grade.name)
+        }}>
+        {grade.name}
+        </td>
+        <td
+        className="course"
+        onClick={() => {
+          getOneByCourse(grade.course)
+        }}
+        >{grade.course}</td>
         <td>{grade.grade}</td>
         <td>
           <i
-            className="fas fa-edit"
+            className="fas fa-edit operatorIcon"
             onClick={() => {
-              editing();
+              editing(grade.id);
               currentUpdating(grade);
             }}
           ></i>
           <span>&#160;&#160;&#160;&#160;</span>
           <i
-            className="fas fa-trash-alt"
+            className="fas fa-trash-alt operatorIcon"
             onClick={() => {
               deleteGrade(grade.id);
             }}
