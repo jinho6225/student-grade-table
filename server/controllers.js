@@ -81,7 +81,6 @@ const controllers = {
   },
   getOneByCourse: (req, res) => {
     const { course } = req.params;
-    console.log(req.params)
     const qry = 'select * from sgt WHERE course=?';
     db.query(qry, [course], (err, result) => {
       if (err) {

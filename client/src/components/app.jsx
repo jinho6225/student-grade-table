@@ -147,7 +147,8 @@ export default class App extends React.Component {
     const { grades, isEditing, currentEditing } = this.state;
     return (
       <>
-        <Header average={this.getAverageGrade()} />
+        <Header average={this.getAverageGrade()}
+        getGrade={this.getGrade} />
         <main className="container d-flex flex-wrap justify-content-around py-5">
           <GradeTable
             grades={grades}
