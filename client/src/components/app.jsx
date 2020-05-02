@@ -9,8 +9,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       grades: [],
-      isEditing: false,
-      currentEditing: null
+      isEditing: 0,
+      currentEditing: null,
     };
     this.postGrade = this.postGrade.bind(this);
     this.getGrade = this.getGrade.bind(this);
@@ -24,29 +24,29 @@ export default class App extends React.Component {
 
   getGradeByCourse() {
     fetch('/sgt/course')
-      .then(res => res.json())
-      .then(grades => {
+      .then((res) => res.json())
+      .then((grades) => {
         this.setState({ grades });
       });
   }
 
   getGradeByName() {
     fetch('/sgt/name')
-      .then(res => res.json())
-      .then(grades => {
+      .then((res) => res.json())
+      .then((grades) => {
         this.setState({ grades });
       });
   }
 
-  editing() {
+  editing(id) {
     this.setState({
-      isEditing: !this.state.isEditing
+      isEditing: id
     });
   }
 
   currentUpdating(grade) {
     this.setState({
-      currentEditing: grade
+      currentEditing: grade,
     });
   }
 
@@ -54,32 +54,32 @@ export default class App extends React.Component {
     fetch(`/sgt/${id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(obj)
+      body: JSON.stringify(obj),
     })
-      .then(res => res.json())
-      .then(grade => {
+      .then((res) => res.json())
+      .then((grade) => {
         if (grade.affectedRows > 0) {
           this.getGrade();
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
       });
   }
 
   deleteGrade(id) {
     fetch(`/sgt/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
     })
-      .then(res => res.json())
-      .then(grade => {
+      .then((res) => res.json())
+      .then((grade) => {
         if (grade.affectedRows > 0) {
           this.getGrade();
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
       });
   }
@@ -88,17 +88,17 @@ export default class App extends React.Component {
     fetch('/sgt', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-      .then(res => res.json())
-      .then(grade => {
+      .then((res) => res.json())
+      .then((grade) => {
         if (grade.affectedRows > 0) {
           this.getGrade();
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
       });
   }
@@ -115,8 +115,8 @@ export default class App extends React.Component {
 
   getGrade() {
     fetch('/sgt')
-      .then(res => res.json())
-      .then(grades => this.setState({ grades }));
+      .then((res) => res.json())
+      .then((grades) => this.setState({ grades }));
   }
 
   render() {

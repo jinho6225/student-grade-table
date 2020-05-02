@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Grade = props => {
+const Grade = (props) => {
   const { grade, deleteGrade, editing, currentUpdating } = props;
   return (
     <>
@@ -12,7 +12,7 @@ const Grade = props => {
           <i
             className="fas fa-edit operatorIcon"
             onClick={() => {
-              editing();
+              editing(grade.id);
               currentUpdating(grade);
             }}
           ></i>
