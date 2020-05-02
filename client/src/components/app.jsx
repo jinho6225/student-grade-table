@@ -21,20 +21,24 @@ export default class App extends React.Component {
     this.getGradeByName = this.getGradeByName.bind(this);
     this.getGradeByCourse = this.getGradeByCourse.bind(this);
     this.getOneByName = this.getOneByName.bind(this)
+    this.getOneByCourse = this.getOneByCourse.bind(this)
+  }
+
+  getOneByCourse(course) {
+    fetch(`/sgt/course/${course}`)
+      .then((res) => res.json())
+      .then((grades) => {
+        this.setState({ grades });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
   getOneByName(name) {
-    console.log(name)
-    fetch('/sgt/name', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(name),
-    })
+    fetch(`/sgt/name/${name}`)
       .then((res) => res.json())
       .then((grades) => {
-        console.log(grades)
         this.setState({ grades });
       })
       .catch((error) => {
@@ -153,6 +157,7 @@ export default class App extends React.Component {
             getGradeByName={this.getGradeByName}
             getGradeByCourse={this.getGradeByCourse}
             getOneByName={this.getOneByName}
+            getOneByCourse={this.getOneByCourse}
           />
           <GradeForm
             postGrade={this.postGrade}

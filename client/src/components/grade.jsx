@@ -1,7 +1,13 @@
 import React from 'react';
 
 const Grade = (props) => {
-  const { grade, deleteGrade, editing, currentUpdating, getOneByName } = props;
+  const {
+  grade,
+  deleteGrade,
+  editing,
+  currentUpdating,
+  getOneByName,
+  getOneByCourse } = props;
   return (
     <>
       <tr key={grade.id}>
@@ -12,7 +18,12 @@ const Grade = (props) => {
         }}>
         {grade.name}
         </td>
-        <td>{grade.course}</td>
+        <td
+        className="course"
+        onClick={() => {
+          getOneByCourse(grade.course)
+        }}
+        >{grade.course}</td>
         <td>{grade.grade}</td>
         <td>
           <i
