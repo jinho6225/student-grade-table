@@ -2,14 +2,37 @@ import React from 'react';
 import Grade from './grade.jsx';
 
 const GradeTable = props => {
-  const { grades, deleteGrade, editing, currentUpdating } = props;
+  const {
+    grades,
+    deleteGrade,
+    editing,
+    currentUpdating,
+    getGradeByName,
+    getGradeByCourse,
+    getOneByName,
+    getOneByCourse
+  } = props;
   return (
     <div className="col-12 order-2 col-md-8 order-md-1">
       <table className="table">
         <thead>
           <tr>
-            <th>Student Name</th>
-            <th>Course</th>
+            <th
+              className="name"
+              onClick={() => {
+                getGradeByName();
+              }}
+            >
+              Student Name
+            </th>
+            <th
+              className="course"
+              onClick={() => {
+                getGradeByCourse();
+              }}
+            >
+              Course
+            </th>
             <th>Grade</th>
             <th>Operations</th>
           </tr>
@@ -22,6 +45,8 @@ const GradeTable = props => {
               deleteGrade={deleteGrade}
               editing={editing}
               currentUpdating={currentUpdating}
+              getOneByName={getOneByName}
+              getOneByCourse={getOneByCourse}
             />
           ))}
         </tbody>

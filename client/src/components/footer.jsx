@@ -4,8 +4,8 @@ function Footer() {
   return (
     <div className="bgBlue py-5 footer">
       <div className="container">
-        <h3 className="text-center">🗄 Grade Table</h3>
-        <h6 className="text-center">
+        <h4 className="text-center p-1">🗄 Grade Table</h4>
+        <h6 className="text-center p-1">
           Designed and developed by Jinho Myung © 2020
         </h6>
       </div>

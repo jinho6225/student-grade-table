@@ -6,7 +6,7 @@ class GradeForm extends Component {
     this.state = {
       name: '',
       course: '',
-      grade: ''
+      grade: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -15,13 +15,9 @@ class GradeForm extends Component {
 
   resetHandler(e) {
     e.preventDefault();
-    const { editing } = this.props;
-    this.setState({
-      name: '',
-      course: '',
-      grade: ''
-    });
+    const { editing, currentUpdating } = this.props;
     editing();
+    currentUpdating(null)
   }
 
   handleSubmit(e) {
@@ -32,15 +28,15 @@ class GradeForm extends Component {
       this.setState({
         name: '',
         course: '',
-        grade: ''
+        grade: '',
       });
     }
     if (currentEditing) {
-      this.props.updateGrade(currentEditing.id, this.state);
+      this.props.updateGrade(currentEditing, this.state);
       this.setState({
         name: '',
         course: '',
-        grade: ''
+        grade: '',
       });
       editing();
     }
@@ -57,11 +53,19 @@ class GradeForm extends Component {
   componentDidUpdate(prevProps) {
     const { currentEditing } = this.props;
     if (currentEditing !== prevProps.currentEditing) {
-      this.setState({
-        name: currentEditing.name,
-        course: currentEditing.course,
-        grade: currentEditing.grade
-      });
+      if (currentEditing === null) {
+        this.setState({
+          name: '',
+          course: '',
+          grade: '',
+        });
+      } else {
+        this.setState({
+          name: currentEditing.name,
+          course: currentEditing.course,
+          grade: currentEditing.grade,
+        });
+      }
     }
   }
 
@@ -69,7 +73,7 @@ class GradeForm extends Component {
     const { isEditing } = this.props;
     return (
       <div className="col-12 order-1 col-md-4 order-md-2">
-        <h5 className="">{isEditing ? 'Update Grade' : 'Add Grade'}</h5>
+        <h5 className="mb-2">{isEditing ? 'Update Grade' : 'Add Grade'}</h5>
         <div>
           <form onSubmit={this.handleSubmit}>
             <div className="input-group mb-3">

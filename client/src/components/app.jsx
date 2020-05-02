@@ -9,8 +9,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       grades: [],
-      isEditing: false,
-      currentEditing: null
+      isEditing: 0,
+      currentEditing: null,
     };
     this.postGrade = this.postGrade.bind(this);
     this.getGrade = this.getGrade.bind(this);
@@ -18,17 +18,59 @@ export default class App extends React.Component {
     this.updateGrade = this.updateGrade.bind(this);
     this.currentUpdating = this.currentUpdating.bind(this);
     this.editing = this.editing.bind(this);
+    this.getGradeByName = this.getGradeByName.bind(this);
+    this.getGradeByCourse = this.getGradeByCourse.bind(this);
+    this.getOneByName = this.getOneByName.bind(this)
+    this.getOneByCourse = this.getOneByCourse.bind(this)
   }
 
-  editing() {
+  getOneByCourse(course) {
+    fetch(`/sgt/course/${course}`)
+      .then((res) => res.json())
+      .then((grades) => {
+        this.setState({ grades });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
+  getOneByName(name) {
+    fetch(`/sgt/name/${name}`)
+      .then((res) => res.json())
+      .then((grades) => {
+        this.setState({ grades });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
+  getGradeByCourse() {
+    fetch('/sgt/course')
+      .then((res) => res.json())
+      .then((grades) => {
+        this.setState({ grades });
+      });
+  }
+
+  getGradeByName() {
+    fetch('/sgt/name')
+      .then((res) => res.json())
+      .then((grades) => {
+        this.setState({ grades });
+      });
+  }
+
+  editing(id) {
     this.setState({
-      isEditing: !this.state.isEditing
+      isEditing: id
     });
   }
 
   currentUpdating(grade) {
     this.setState({
-      currentEditing: grade
+      currentEditing: grade,
     });
   }
 
@@ -36,32 +78,32 @@ export default class App extends React.Component {
     fetch(`/sgt/${id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(obj)
+      body: JSON.stringify(obj),
     })
-      .then(res => res.json())
-      .then(grade => {
+      .then((res) => res.json())
+      .then((grade) => {
         if (grade.affectedRows > 0) {
           this.getGrade();
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
       });
   }
 
   deleteGrade(id) {
     fetch(`/sgt/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
     })
-      .then(res => res.json())
-      .then(grade => {
+      .then((res) => res.json())
+      .then((grade) => {
         if (grade.affectedRows > 0) {
           this.getGrade();
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
       });
   }
@@ -70,17 +112,17 @@ export default class App extends React.Component {
     fetch('/sgt', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-      .then(res => res.json())
-      .then(grade => {
+      .then((res) => res.json())
+      .then((grade) => {
         if (grade.affectedRows > 0) {
           this.getGrade();
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
       });
   }
@@ -97,21 +139,26 @@ export default class App extends React.Component {
 
   getGrade() {
     fetch('/sgt')
-      .then(res => res.json())
-      .then(grades => this.setState({ grades }));
+      .then((res) => res.json())
+      .then((grades) => this.setState({ grades }));
   }
 
   render() {
     const { grades, isEditing, currentEditing } = this.state;
     return (
       <>
-        <Header average={this.getAverageGrade()} />
+        <Header average={this.getAverageGrade()}
+        getGrade={this.getGrade} />
         <main className="container d-flex flex-wrap justify-content-around py-5">
           <GradeTable
             grades={grades}
             deleteGrade={this.deleteGrade}
             editing={this.editing}
             currentUpdating={this.currentUpdating}
+            getGradeByName={this.getGradeByName}
+            getGradeByCourse={this.getGradeByCourse}
+            getOneByName={this.getOneByName}
+            getOneByCourse={this.getOneByCourse}
           />
           <GradeForm
             postGrade={this.postGrade}

@@ -8,18 +8,23 @@ main {
 }
 
 h3,
-h4 {
+h4,
+h5 {
   margin: 0;
 }
 
 .badge {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
-.operatorIcon {
-  transition: transform 0.3s;
+.operatorIcon,
+.name,
+.course {
+  transition: transform 0.2s;
 }
-.operatorIcon:hover {
+.operatorIcon:hover,
+.name:hover,
+.course:hover {
   color: darkcyan;
   transform: scale(1.2);
   cursor: pointer;

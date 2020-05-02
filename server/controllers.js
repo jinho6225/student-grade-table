@@ -47,6 +47,48 @@ const controllers = {
         res.status(200).send(result);
       }
     });
+  },
+  getAllByName: (req, res) => {
+    const qry = 'select * from sgt order by name';
+    db.query(qry, (err, result) => {
+      if (err) {
+        res.status(400).send(err);
+      } else {
+        res.status(200).send(result);
+      }
+    });
+  },
+  getAllByCourse: (req, res) => {
+    const qry = 'select * from sgt order by course';
+    db.query(qry, (err, result) => {
+      if (err) {
+        res.status(400).send(err);
+      } else {
+        res.status(200).send(result);
+      }
+    });
+  },
+  getOneByName: (req, res) => {
+    const { name } = req.params;
+    const qry = 'select * from sgt WHERE name=?';
+    db.query(qry, [name], (err, result) => {
+      if (err) {
+        res.status(400).send(err);
+      } else {
+        res.status(200).send(result);
+      }
+    });
+  },
+  getOneByCourse: (req, res) => {
+    const { course } = req.params;
+    const qry = 'select * from sgt WHERE course=?';
+    db.query(qry, [course], (err, result) => {
+      if (err) {
+        res.status(400).send(err);
+      } else {
+        res.status(200).send(result);
+      }
+    });
   }
 };
 
