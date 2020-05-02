@@ -8,7 +8,8 @@ const GradeTable = props => {
     editing,
     currentUpdating,
     getGradeByName,
-    getGradeByCourse
+    getGradeByCourse,
+    getOneByName
   } = props;
   return (
     <div className="col-12 order-2 col-md-8 order-md-1">
@@ -43,6 +44,7 @@ const GradeTable = props => {
               deleteGrade={deleteGrade}
               editing={editing}
               currentUpdating={currentUpdating}
+              getOneByName={getOneByName}
             />
           ))}
         </tbody>

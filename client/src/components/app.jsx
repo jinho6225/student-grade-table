@@ -20,6 +20,26 @@ export default class App extends React.Component {
     this.editing = this.editing.bind(this);
     this.getGradeByName = this.getGradeByName.bind(this);
     this.getGradeByCourse = this.getGradeByCourse.bind(this);
+    this.getOneByName = this.getOneByName.bind(this)
+  }
+
+  getOneByName(name) {
+    console.log(name)
+    fetch('/sgt/name', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(name),
+    })
+      .then((res) => res.json())
+      .then((grades) => {
+        console.log(grades)
+        this.setState({ grades });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
   getGradeByCourse() {
@@ -132,6 +152,7 @@ export default class App extends React.Component {
             currentUpdating={this.currentUpdating}
             getGradeByName={this.getGradeByName}
             getGradeByCourse={this.getGradeByCourse}
+            getOneByName={this.getOneByName}
           />
           <GradeForm
             postGrade={this.postGrade}

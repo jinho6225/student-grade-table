@@ -5,14 +5,19 @@ const controllers = require('./controllers.js');
 router
   .route('/sgt')
   .get(controllers.getAll)
-  .post(controllers.postOne);
+  .post(controllers.postOne)
+
 
 router
   .route('/sgt/:id')
   .delete(controllers.deleteOne)
   .put(controllers.updateOne);
 
-router.route('/sgt/name').get(controllers.getAllByName);
+router
+  .route('/sgt/name')
+  .get(controllers.getAllByName)
+  .post(controllers.getOneByName);
+
 router.route('/sgt/course').get(controllers.getAllByCourse);
 
 module.exports = router;

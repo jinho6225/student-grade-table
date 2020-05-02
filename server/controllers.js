@@ -67,6 +67,20 @@ const controllers = {
         res.status(200).send(result);
       }
     });
+  },
+  getOneByName: (req, res) => {
+        console.log(req)
+
+    const { name } = req.body;
+    const qry = `select * from sgt where name=?`;
+    db.query(qry, [name], (err, result) => {
+      if (err) {
+        res.status(400).send(err);
+      } else {
+        console.log(result)
+        res.status(200).send(result);
+      }
+    });
   }
 };
 
