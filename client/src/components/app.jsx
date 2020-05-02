@@ -75,7 +75,7 @@ export default class App extends React.Component {
   }
 
   updateGrade(id, obj) {
-    fetch(`/sgt/${id}`, {
+    fetch(`/sgt/${id.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
