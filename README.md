@@ -23,6 +23,9 @@ Try the application live at [https://gradetable.jinho6225.com/](https://gradetab
 ## Features
 
 - User can view all grades.
+- User can sort all grades by name or by course
+- User can view each course grades.
+- User can view each student grades.
 - User can view the average grade.
 - User can add a grade.
 - User can delete a grade.
