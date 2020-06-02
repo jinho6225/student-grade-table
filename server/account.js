@@ -1,4 +1,4 @@
-/*global require, process*/
+/*global require, process, module */
 
 require('dotenv').config();
 const crypto = require('crypto');
@@ -9,3 +9,5 @@ function hash(password) {
     .update(password)
     .digest('hex');
 }
+
+module.exports = hash;

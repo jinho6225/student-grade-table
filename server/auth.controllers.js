@@ -2,6 +2,7 @@
 /* eslint-disable no-console */
 
 const db = require('../db/index.js');
+const hash = require('./account.js');
 const { validationResult } = require('express-validator');
 
 const auth_controllers = {
@@ -21,7 +22,8 @@ const auth_controllers = {
         } else {
           const qry =
             'insert into user (email, pwd, submission_date) values (?, ?, SYSDATE())';
-          db.query(qry, [email, pwd], (err, result) => {
+          const hasedPwd = hash(pwd);
+          db.query(qry, [email, hasedPwd], (err, result) => {
             if (err) {
               res.status(400).send(err);
             } else {
@@ -41,6 +43,29 @@ const auth_controllers = {
         res.status(200).send(result);
       }
     });
+  },
+  login_local: async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    const { email, pwd } = req.body;
+    try {
+      const qry = 'select * from user where email = ?';
+      await db.query(qry, [email], (err, result) => {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          if (result[0].pwd === hash(pwd)) {
+            return res.status(200).send(result);
+          } else {
+            res.status(400).send('wrong pwd');
+          }
+        }
+      });
+    } catch (e) {
+      res.status(400).send(e);
+    }
   },
 };
 
