@@ -1,3 +1,4 @@
+/*global require*/
 /* eslint-disable no-console */
 
 const db = require('../db/index.js');
@@ -88,7 +89,7 @@ const controllers = {
         res.status(200).send(result);
       }
     });
-  }
+  },
 };
 
 module.exports = controllers;
