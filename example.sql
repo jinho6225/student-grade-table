@@ -83,3 +83,23 @@ INSERT INTO `
 topic`
 VALUES
   (5, 'MongoDB', 'MongoDB is ...', '2018-01-30 12:31:03', 1);
+
+
+
+CREATE TABLE `user`
+(
+  `id` int
+(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar
+(100) NOT NULL,
+  `pwd` varchar
+(100) NOT NULL,
+submission_date DATE,
+  PRIMARY KEY
+(`id`)
+);
+
+INSERT INTO `
+user`
+VALUES
+  ('jinho6225@hotmail.com', '111111');
