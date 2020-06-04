@@ -31,7 +31,9 @@ const Account = {
       if (err) {
         res.status(400).send(err);
       } else {
-        res.status(201).json(result);
+        if (result.length > 0) {
+          res.status(201).json(result);
+        }
       }
     });
   },
