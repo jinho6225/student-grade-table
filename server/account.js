@@ -41,9 +41,10 @@ Account.localRegister = async function ({ email, pwd }) {
   return user;
 };
 
-Account.validatePassword = function (password) {
+Account.validatePassword = async function (email, password) {
   const hashed = hash(password);
-  return this.password === hashed;
+  const foundEmail = await this.findOne({ email });
+  return foundEmail.dataValues.pwd === hashed;
 };
 
 module.exports = Account;
