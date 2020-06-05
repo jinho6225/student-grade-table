@@ -2,6 +2,7 @@
 
 const crypto = require('crypto');
 const db = require('../db/index.js');
+const { Sequelize, DataTypes } = require('sequelize');
 
 function hash(password) {
   return crypto
@@ -10,23 +11,39 @@ function hash(password) {
     .digest('hex');
 }
 
-const Account = {
-  // registerLocal: async (req, res) => {
-  //   const { email, pwd } = req;
-  //   const qry = `insert into user (email, pwd, submission_date) values (?, ?, NOW())`;
-  //   let register = null;
-  //   try {
-  //     register = await db.query(qry, [email, hash(pwd)]);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  //   return register.values[0];
-  // },
-  // localLogin: async (req, res) => {},
-  // validatePassword: function (pwd) {
-  //   const hashed = hash(pwd);
-  //   return this.pwd === hashed;
-  // },
+const Account = db.define(
+  'user',
+  {
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    pwd: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  { timestamps: true }
+);
+
+Account.sync();
+
+Account.findEmail = async function (email) {
+  const foundEmail = await this.findOne({ email });
+  if (foundEmail === null) {
+    console.log('Not found!');
+  }
+  return foundEmail;
+};
+
+Account.localRegister = async function ({ email, pwd }) {
+  const user = await this.create({ email, pwd: hash(pwd) });
+  return user;
+};
+
+Account.validatePassword = function (password) {
+  const hashed = hash(password);
+  return this.password === hashed;
 };
 
 module.exports = Account;
