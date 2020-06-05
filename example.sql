@@ -94,7 +94,7 @@ CREATE TABLE `user`
 (100) NOT NULL,
   `pwd` varchar
 (100) NOT NULL,
-submission_date DATE,
+createdAt DATE,
   PRIMARY KEY
 (`id`)
 );

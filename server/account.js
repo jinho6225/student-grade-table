@@ -2,6 +2,8 @@
 
 const crypto = require('crypto');
 const db = require('../db/index.js');
+const { DataTypes } = require('sequelize');
+const { generateToken } = require('./token');
 
 function hash(password) {
   return crypto
@@ -10,24 +12,45 @@ function hash(password) {
     .digest('hex');
 }
 
-const Account = {
-  registerLocal: async (req, res) => {
-    const { email, pwd } = req;
-    const qry = `insert into user (email, pwd, submission_date) values (?, ?, NOW())`;
-    let register = null;
-    try {
-      register = await db.query(qry, [email, hash(pwd)]);
-    } catch (e) {
-      console.error(e);
-    }
-    return register.values[0];
+const Account = db.define(
+  'user',
+  {
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    pwd: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
-  localLogin: async (req, res) => {},
+  { timestamps: true }
+);
 
-  validatePassword: function (pwd) {
-    const hashed = hash(pwd);
-    return this.pwd === hashed;
-  },
+Account.sync();
+
+Account.findEmail = async function (email) {
+  const foundEmail = await this.findOne({ email });
+  if (foundEmail === null) {
+    console.log('Not found!');
+  }
+  return foundEmail;
+};
+
+Account.localRegister = async function ({ email, pwd }) {
+  const user = await this.create({ email, pwd: hash(pwd) });
+  return user;
+};
+
+Account.validatePassword = async function (email, password) {
+  const hashed = hash(password);
+  const foundEmail = await this.findOne({ email });
+  return foundEmail.dataValues.pwd === hashed;
+};
+
+Account.generateToken = async function () {
+  const payload = {};
+  return generateToken(payload, 'account');
 };
 
 module.exports = Account;
