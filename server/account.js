@@ -2,7 +2,8 @@
 
 const crypto = require('crypto');
 const db = require('../db/index.js');
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
+const { generateToken } = require('./token');
 
 function hash(password) {
   return crypto
@@ -45,6 +46,11 @@ Account.validatePassword = async function (email, password) {
   const hashed = hash(password);
   const foundEmail = await this.findOne({ email });
   return foundEmail.dataValues.pwd === hashed;
+};
+
+Account.generateToken = async function () {
+  const payload = {};
+  return generateToken(payload, 'account');
 };
 
 module.exports = Account;

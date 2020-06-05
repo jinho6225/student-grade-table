@@ -24,6 +24,7 @@ exports.localRegister = async (req, res) => {
   } catch (e) {
     console.error(e);
   }
+
   if (existing) {
     res.status(409).send(`${existing.dataValues.email} already exist`);
     return;
@@ -38,6 +39,20 @@ exports.localRegister = async (req, res) => {
   } catch (err) {
     console.error(err);
   }
+
+  let token = null;
+  try {
+    token = await Account.generateToken();
+  } catch (e) {
+    res.status(500).send(e);
+  }
+
+  let options = {
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    httpOnly: true,
+  };
+  res.cookie('access_token', token, options);
+
   res.status(200).send(`${account.dataValues.email} register completed!`);
 };
 
@@ -67,12 +82,54 @@ exports.localLogin = async (req, res) => {
     res.status(403).send('Not Found');
     return;
   }
+
+  let token = null;
+  try {
+    token = await Account.generateToken();
+  } catch (e) {
+    res.status(500).send(e);
+  }
+
+  let options = {
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    httpOnly: true,
+  };
+  res.cookie('access_token', token, options);
+
   res.status(200).send(`${account.dataValues.email} login completed!`);
 };
 
 exports.exists = async (req, res) => {
-  res.status(200).send('exists');
+  const { value } = req.params;
+  let account = null;
+
+  try {
+    account = await Account.findEmail({ value });
+  } catch (e) {
+    res.status(500).send(e);
+  }
+
+  if (account) {
+    res.status(200).send('exists');
+  }
 };
-exports.logout = async (req, res) => {
-  res.status(200).send('logout');
+
+exports.logout = (req, res) => {
+  let options = {
+    maxAge: 0,
+    httpOnly: true,
+  };
+  res.cookie('access_token', null, options);
+
+  res.status(204).send('logout');
+};
+
+exports.check = (req, res) => {
+  const { user } = req;
+
+  if (!user) {
+    res.status(403);
+    return;
+  }
+  res.send(req.body.email);
 };

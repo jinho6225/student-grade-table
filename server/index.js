@@ -7,10 +7,14 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const router = require('./router.js');
 const auth = require('./auth.router.js');
+const cookieParser = require('cookie-parser');
+const { jwtMiddleware } = require('./token');
 
 const path = require('path');
 
 app.use(cors());
+app.use(cookieParser());
+app.use(jwtMiddleware);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
