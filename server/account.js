@@ -11,23 +11,22 @@ function hash(password) {
 }
 
 const Account = {
-  registerLocal: async (req, res) => {
-    const { email, pwd } = req;
-    const qry = `insert into user (email, pwd, submission_date) values (?, ?, NOW())`;
-    let register = null;
-    try {
-      register = await db.query(qry, [email, hash(pwd)]);
-    } catch (e) {
-      console.error(e);
-    }
-    return register.values[0];
-  },
-  localLogin: async (req, res) => {},
-
-  validatePassword: function (pwd) {
-    const hashed = hash(pwd);
-    return this.pwd === hashed;
-  },
+  // registerLocal: async (req, res) => {
+  //   const { email, pwd } = req;
+  //   const qry = `insert into user (email, pwd, submission_date) values (?, ?, NOW())`;
+  //   let register = null;
+  //   try {
+  //     register = await db.query(qry, [email, hash(pwd)]);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  //   return register.values[0];
+  // },
+  // localLogin: async (req, res) => {},
+  // validatePassword: function (pwd) {
+  //   const hashed = hash(pwd);
+  //   return this.pwd === hashed;
+  // },
 };
 
 module.exports = Account;
