@@ -1,94 +1,136 @@
-/*global require*/
+/*global require, module*/
 /* eslint-disable no-console */
 
 const db = require('../db/index.js');
+const { DataTypes } = require('sequelize');
+
+const Sgt = db.define(
+  'sgt',
+  {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    course: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    grade: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+  },
+  { timestamps: false }
+);
+
+Sgt.sync();
 
 const controllers = {
-  getAll: (req, res) => {
-    const qry = 'select * from sgt';
-    db.query(qry, (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+  getAll: async (req, res) => {
+    let users = null;
+    try {
+      users = await Sgt.findAll();
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    res.status(200).send(users);
   },
-  postOne: (req, res) => {
+  postOne: async (req, res) => {
     const { name, course, grade } = req.body;
-    const qry = 'insert into sgt (name, course, grade) values (?, ?, ?)';
-    db.query(qry, [name, course, grade], (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(201).json(result);
-      }
-    });
+    let student = null;
+    try {
+      student = await Sgt.create({ name, course, grade });
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    res.status(201).json(student);
   },
-  deleteOne: (req, res) => {
+  deleteOne: async (req, res) => {
     const { id } = req.params;
-    const qry = `delete from sgt where id = ${id}`;
-    db.query(qry, (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+    let rmv = null;
+    try {
+      rmv = await Sgt.destroy({
+        where: {
+          id,
+        },
+      });
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    res.status(204).send(`deleted id ${rmv}`);
   },
-  updateOne: (req, res) => {
+  updateOne: async (req, res) => {
     const { name, course, grade } = req.body;
     const { id } = req.params;
-    const qry = 'UPDATE sgt SET name=?, course=?, grade=? WHERE id=?';
-    db.query(qry, [name, course, grade, id], (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+    let updat = null;
+    try {
+      updat = await Sgt.update(
+        { name, course, grade },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    if (updat.length > 0) {
+      res.status(204).send(`updated it`);
+    }
   },
-  getAllByName: (req, res) => {
-    const qry = 'select * from sgt order by name';
-    db.query(qry, (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+
+  getAllByName: async (req, res) => {
+    let name = null;
+    try {
+      name = await Sgt.findAll({
+        order: [['name', 'ASC']],
+      });
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    res.status(200).send(name);
   },
-  getAllByCourse: (req, res) => {
-    const qry = 'select * from sgt order by course';
-    db.query(qry, (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+
+  getAllByCourse: async (req, res) => {
+    let course = null;
+    try {
+      course = await Sgt.findAll({
+        order: [['course', 'ASC']],
+      });
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    res.status(200).send(course);
   },
-  getOneByName: (req, res) => {
+
+  getOneByName: async (req, res) => {
     const { name } = req.params;
-    const qry = 'select * from sgt WHERE name=?';
-    db.query(qry, [name], (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+    let nameOne = null;
+    try {
+      nameOne = await Sgt.findAll({
+        where: {
+          name,
+        },
+      });
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    res.status(200).send(nameOne);
   },
-  getOneByCourse: (req, res) => {
+  getOneByCourse: async (req, res) => {
     const { course } = req.params;
-    const qry = 'select * from sgt WHERE course=?';
-    db.query(qry, [course], (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+    let courseOne = null;
+    try {
+      courseOne = await Sgt.findAll({
+        where: {
+          course,
+        },
+      });
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    res.status(200).send(courseOne);
   },
 };
 

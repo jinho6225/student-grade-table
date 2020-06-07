@@ -20,8 +20,8 @@ export default class App extends React.Component {
     this.editing = this.editing.bind(this);
     this.getGradeByName = this.getGradeByName.bind(this);
     this.getGradeByCourse = this.getGradeByCourse.bind(this);
-    this.getOneByName = this.getOneByName.bind(this)
-    this.getOneByCourse = this.getOneByCourse.bind(this)
+    this.getOneByName = this.getOneByName.bind(this);
+    this.getOneByCourse = this.getOneByCourse.bind(this);
   }
 
   getOneByCourse(course) {
@@ -64,7 +64,7 @@ export default class App extends React.Component {
 
   editing(id) {
     this.setState({
-      isEditing: id
+      isEditing: id,
     });
   }
 
@@ -82,9 +82,9 @@ export default class App extends React.Component {
       },
       body: JSON.stringify(obj),
     })
-      .then((res) => res.json())
+      .then((res) => res)
       .then((grade) => {
-        if (grade.affectedRows > 0) {
+        if (grade.status === 204) {
           this.getGrade();
         }
       })
@@ -97,11 +97,9 @@ export default class App extends React.Component {
     fetch(`/sgt/${id}`, {
       method: 'DELETE',
     })
-      .then((res) => res.json())
-      .then((grade) => {
-        if (grade.affectedRows > 0) {
-          this.getGrade();
-        }
+      .then((res) => res)
+      .then(() => {
+        this.getGrade();
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -118,7 +116,7 @@ export default class App extends React.Component {
     })
       .then((res) => res.json())
       .then((grade) => {
-        if (grade.affectedRows > 0) {
+        if (grade) {
           this.getGrade();
         }
       })
@@ -140,15 +138,17 @@ export default class App extends React.Component {
   getGrade() {
     fetch('/sgt')
       .then((res) => res.json())
-      .then((grades) => this.setState({ grades }));
+      .then((grades) => {
+        this.setState({ grades });
+      });
   }
 
   render() {
     const { grades, isEditing, currentEditing } = this.state;
+    console.log(grades, 'grades?');
     return (
       <>
-        <Header average={this.getAverageGrade()}
-        getGrade={this.getGrade} />
+        <Header average={this.getAverageGrade()} getGrade={this.getGrade} />
         <main className="container d-flex flex-wrap justify-content-around py-5">
           <GradeTable
             grades={grades}
