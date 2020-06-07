@@ -8,7 +8,7 @@ const BorderedButton = styled(Link)`
   color: ${oc.cyan[9]};
   border: 1px solid ${oc.cyan[9]};
   padding: 0.5rem;
-  padding-bottom: 0.4rem;
+  margin-left: 0.3rem;
   cursor: pointer;
   border-radius: 2px;
   text-decoration: none;

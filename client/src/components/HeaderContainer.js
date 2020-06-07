@@ -9,7 +9,7 @@ class HeaderContainer extends Component {
 
     return (
       <Header average={average} getGrade={getGrade}>
-        <div className="ml-2">
+        <div className="ml-2 d-flex">
           <Route exact path="/" component={Home} />
           <Route path="/auth" component={Auth} />
           <Route path="/auth/login" component={Login} />
