@@ -59,19 +59,27 @@ const controllers = {
     }
     res.status(204).send(`deleted id ${rmv}`);
   },
-
-  updateOne: (req, res) => {
+  updateOne: async (req, res) => {
     const { name, course, grade } = req.body;
     const { id } = req.params;
-    const qry = 'UPDATE sgt SET name=?, course=?, grade=? WHERE id=?';
-    db.query(qry, [name, course, grade, id], (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+    let updat = null;
+    try {
+      updat = await Sgt.update(
+        { name, course, grade },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    if (updat.length > 0) {
+      res.status(204).send(`updated it`);
+    }
   },
+
   getAllByName: (req, res) => {
     const qry = 'select * from sgt order by name';
     db.query(qry, (err, result) => {

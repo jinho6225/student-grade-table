@@ -82,9 +82,9 @@ export default class App extends React.Component {
       },
       body: JSON.stringify(obj),
     })
-      .then((res) => res.json())
+      .then((res) => res)
       .then((grade) => {
-        if (grade.affectedRows > 0) {
+        if (grade.status === 204) {
           this.getGrade();
         }
       })
@@ -94,7 +94,6 @@ export default class App extends React.Component {
   }
 
   deleteGrade(id) {
-    console.log(id);
     fetch(`/sgt/${id}`, {
       method: 'DELETE',
     })
