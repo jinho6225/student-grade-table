@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 const db = require('../db/index.js');
-const { DataTypes } = require('sequelize');
+const { sequelize, DataTypes } = require('sequelize');
 
 const Sgt = db.define(
   'sgt',
@@ -45,18 +45,21 @@ const controllers = {
     }
     res.status(201).json(student);
   },
-
-  deleteOne: (req, res) => {
+  deleteOne: async (req, res) => {
     const { id } = req.params;
-    const qry = `delete from sgt where id = ${id}`;
-    db.query(qry, (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+    let rmv = null;
+    try {
+      rmv = await Sgt.destroy({
+        where: {
+          id,
+        },
+      });
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    res.status(204).send(`deleted id ${rmv}`);
   },
+
   updateOne: (req, res) => {
     const { name, course, grade } = req.body;
     const { id } = req.params;

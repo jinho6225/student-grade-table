@@ -94,14 +94,13 @@ export default class App extends React.Component {
   }
 
   deleteGrade(id) {
+    console.log(id);
     fetch(`/sgt/${id}`, {
       method: 'DELETE',
     })
-      .then((res) => res.json())
-      .then((grade) => {
-        if (grade.affectedRows > 0) {
-          this.getGrade();
-        }
+      .then((res) => res)
+      .then(() => {
+        this.getGrade();
       })
       .catch((error) => {
         console.error('Error:', error);
