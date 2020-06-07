@@ -104,27 +104,33 @@ const controllers = {
     res.status(200).send(course);
   },
 
-  getOneByName: (req, res) => {
+  getOneByName: async (req, res) => {
     const { name } = req.params;
-    const qry = 'select * from sgt WHERE name=?';
-    db.query(qry, [name], (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+    let nameOne = null;
+    try {
+      nameOne = await Sgt.findAll({
+        where: {
+          name,
+        },
+      });
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    res.status(200).send(nameOne);
   },
-  getOneByCourse: (req, res) => {
+  getOneByCourse: async (req, res) => {
     const { course } = req.params;
-    const qry = 'select * from sgt WHERE course=?';
-    db.query(qry, [course], (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+    let courseOne = null;
+    try {
+      courseOne = await Sgt.findAll({
+        where: {
+          course,
+        },
+      });
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    res.status(200).send(courseOne);
   },
 };
 
