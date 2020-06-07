@@ -1,8 +1,8 @@
-/*global require*/
+/*global require, module*/
 /* eslint-disable no-console */
 
 const db = require('../db/index.js');
-const { sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 const Sgt = db.define(
   'sgt',
@@ -80,26 +80,30 @@ const controllers = {
     }
   },
 
-  getAllByName: (req, res) => {
-    const qry = 'select * from sgt order by name';
-    db.query(qry, (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+  getAllByName: async (req, res) => {
+    let name = null;
+    try {
+      name = await Sgt.findAll({
+        order: [['name', 'ASC']],
+      });
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    res.status(200).send(name);
   },
-  getAllByCourse: (req, res) => {
-    const qry = 'select * from sgt order by course';
-    db.query(qry, (err, result) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+
+  getAllByCourse: async (req, res) => {
+    let course = null;
+    try {
+      course = await Sgt.findAll({
+        order: [['course', 'ASC']],
+      });
+    } catch (e) {
+      res.status(400).send(e);
+    }
+    res.status(200).send(course);
   },
+
   getOneByName: (req, res) => {
     const { name } = req.params;
     const qry = 'select * from sgt WHERE name=?';
