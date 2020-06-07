@@ -1,10 +1,10 @@
-import React from 'react';
-import Header from './header.jsx';
+import React, { Component } from 'react';
+import HeaderContainer from './HeaderContainer';
 import Footer from './footer.jsx';
 import GradeTable from './grade-table.jsx';
 import GradeForm from './grade-form.jsx';
 
-export default class App extends React.Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -145,10 +145,12 @@ export default class App extends React.Component {
 
   render() {
     const { grades, isEditing, currentEditing } = this.state;
-    console.log(grades, 'grades?');
     return (
       <>
-        <Header average={this.getAverageGrade()} getGrade={this.getGrade} />
+        <HeaderContainer
+          average={this.getAverageGrade()}
+          getGrade={this.getGrade}
+        />
         <main className="container d-flex flex-wrap justify-content-around py-5">
           <GradeTable
             grades={grades}

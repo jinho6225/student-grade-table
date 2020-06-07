@@ -1,26 +1,32 @@
 .bgBlue {
   background-color: lightsteelblue;
-  color: black; }
+  color: black;
+}
 
 main {
-  min-height: 73vh; }
+  min-height: 73vh;
+}
 
 h3,
 h4,
 h5 {
-  margin: 0; }
+  margin: 0;
+}
 
 .badge {
-  font-size: 1.1rem; }
+  font-size: 1.1rem;
+}
 
 .operatorIcon,
 .name,
 .course {
-  transition: transform 0.2s; }
+  transition: transform 0.2s;
+}
 
 .operatorIcon:hover,
 .name:hover,
 .course:hover {
   color: darkcyan;
   transform: scale(1.2);
-  cursor: pointer; }
+  cursor: pointer;
+}

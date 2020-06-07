@@ -1,5 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./components/app.jsx";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Root from './Root';
+import configureStore from './redux/configureStore';
 
-ReactDOM.render(<App />, document.querySelector("#app"));
+const store = configureStore();
+
+ReactDOM.render(<Root store={store} />, document.querySelector('#app'));
