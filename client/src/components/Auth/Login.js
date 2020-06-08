@@ -2,19 +2,21 @@ import React, { Component } from 'react';
 import AuthContent from './AuthContent';
 import InputWithLabel from './InputWithLabel';
 import AuthButton from './AuthButton';
+import RightAlignedLink from './RightAlignedLink';
 
 class Login extends Component {
   render() {
     return (
-      <AuthContent title="로그인">
-        <InputWithLabel label="이메일" name="email" placeholder="이메일" />
+      <AuthContent title="Sign In">
+        <InputWithLabel label="email" name="email" placeholder="email" />
         <InputWithLabel
-          label="비밀번호"
+          label="password"
           name="password"
-          placeholder="비밀번호"
+          placeholder="password"
           type="password"
         />
-        <AuthButton>로그인</AuthButton>
+        <AuthButton>Sign In</AuthButton>
+        <RightAlignedLink to="/auth/register">회원가입</RightAlignedLink>
       </AuthContent>
     );
   }

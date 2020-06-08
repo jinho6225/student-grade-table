@@ -34,7 +34,7 @@ const Logo = styled(Link)`
 `;
 
 const Contents = styled.div`
-  background: white;
+  background: #fffff3;
   padding: 2rem;
   height: auto;
 `;
