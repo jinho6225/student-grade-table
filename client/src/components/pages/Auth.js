@@ -8,8 +8,12 @@ class Auth extends Component {
   render() {
     return (
       <AuthWrapper>
-        <Route path="/auth/login" component={Login} />
-        <Route path="/auth/register" component={Register} />
+        <Route path="/auth/login" component={Login}>
+          <Login />
+        </Route>
+        <Route path="/auth/register" component={Register}>
+          <Register />
+        </Route>
       </AuthWrapper>
     );
   }

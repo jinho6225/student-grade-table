@@ -10,6 +10,9 @@ const Title = styled.div`
   font-weight: 500;
   color: ${oc.gray[8]};
   margin-bottom: 1rem;
+  @media (max-width: 640px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const AuthContent = ({ title, children }) => (

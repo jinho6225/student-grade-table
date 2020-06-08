@@ -19,7 +19,7 @@ const Account = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    pwd: {
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -29,16 +29,17 @@ const Account = db.define(
 
 Account.sync();
 
-Account.findEmail = async function (email) {
-  const foundEmail = await this.findOne({ email });
+Account.findEmail = async function ({ email }) {
+  const foundEmail = await this.findOne({ where: { email } });
   if (foundEmail === null) {
     console.log('Not found!');
   }
   return foundEmail;
 };
 
-Account.localRegister = async function ({ email, pwd }) {
-  const user = await this.create({ email, pwd: hash(pwd) });
+Account.localRegister = async function ({ email, password }) {
+  password = hash(password);
+  const user = await this.create({ email, password });
   return user;
 };
 

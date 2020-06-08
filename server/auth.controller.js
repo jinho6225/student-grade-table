@@ -6,12 +6,13 @@ const Account = require('./account');
 exports.localRegister = async (req, res) => {
   const schema = Joi.object({
     email: Joi.string().min(4).required().email(),
-    pwd: Joi.string().min(6).required(),
+    password: Joi.string().min(6).required(),
   });
-  let { email, pwd } = req.body;
+  let { email, password } = req.body;
+
   const result = schema.validate({
     email,
-    pwd,
+    password,
   });
   if (result.error) {
     res.status(400).send(result.error);
@@ -31,10 +32,11 @@ exports.localRegister = async (req, res) => {
   }
 
   let account = null;
+
   try {
     account = await Account.localRegister({
       email,
-      pwd,
+      password,
     });
   } catch (err) {
     console.error(err);
@@ -59,12 +61,12 @@ exports.localRegister = async (req, res) => {
 exports.localLogin = async (req, res) => {
   const schema = Joi.object({
     email: Joi.string().min(4).required().email(),
-    pwd: Joi.string().min(6).required(),
+    password: Joi.string().min(6).required(),
   });
-  let { email, pwd } = req.body;
+  let { email, password } = req.body;
   const result = schema.validate({
     email,
-    pwd,
+    password,
   });
   if (result.error) {
     res.status(400).send(result.error);
@@ -78,7 +80,7 @@ exports.localLogin = async (req, res) => {
     console.error(e);
   }
 
-  if (!account || (await !Account.validatePassword(email, pwd))) {
+  if (!account || (await !Account.validatePassword(email, password))) {
     res.status(403).send('Not Found');
     return;
   }
