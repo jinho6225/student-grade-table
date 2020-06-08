@@ -3,6 +3,7 @@ import AuthContent from './AuthContent';
 import InputWithLabel from './InputWithLabel';
 import AuthButton from './AuthButton';
 import RightAlignedLink from './RightAlignedLink';
+import { Consumer } from '../../store.jsx';
 
 class Register extends Component {
   render() {
@@ -23,6 +24,7 @@ class Register extends Component {
         />
         <AuthButton>Sign Up</AuthButton>
         <RightAlignedLink to="/auth/login">Login</RightAlignedLink>
+        <Consumer>{({ grades }) => console.log(grades, 'hey')}</Consumer>
       </AuthContent>
     );
   }

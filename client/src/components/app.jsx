@@ -4,16 +4,34 @@ import Footer from './footer.jsx';
 import GradeTable from './grade-table.jsx';
 import GradeForm from './grade-form.jsx';
 import Auth from './Pages/Auth';
+import { Provider } from '../store.jsx';
 
 import { Switch, Route } from 'react-router-dom';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
+
+    this.createUser = () => {
+      fetch('/auth/register/local', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    };
+
     this.state = {
       grades: [],
       isEditing: 0,
       currentEditing: null,
+      createUser: this.createUser,
     };
     this.postGrade = this.postGrade.bind(this);
     this.getGrade = this.getGrade.bind(this);
@@ -179,7 +197,11 @@ export default class App extends Component {
             <Footer />
           </Route>
 
-          <Route path="/auth" component={Auth} />
+          <Route path="/auth" component={Auth}>
+            <Provider value={this.state}>
+              <Auth />
+            </Provider>
+          </Route>
         </Switch>
       </>
     );
