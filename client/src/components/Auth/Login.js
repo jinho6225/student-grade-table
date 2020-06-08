@@ -16,7 +16,7 @@ class Login extends Component {
           type="password"
         />
         <AuthButton>Sign In</AuthButton>
-        <RightAlignedLink to="/auth/register">회원가입</RightAlignedLink>
+        <RightAlignedLink to="/auth/register">Sign Up</RightAlignedLink>
       </AuthContent>
     );
   }

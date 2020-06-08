@@ -12,15 +12,15 @@ export default class App extends Component {
   constructor(props) {
     super(props);
 
-    this.createUser = () => {
+    this.createUser = ({ email, password }) => {
       fetch('/auth/register/local', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ email, password }),
       })
-        .then((res) => res.json())
+        .then((res) => res)
         .then((data) => console.log(data))
         .catch((error) => {
           console.error('Error:', error);

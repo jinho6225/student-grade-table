@@ -4,47 +4,11 @@ import InputWithLabel from './InputWithLabel';
 import AuthButton from './AuthButton';
 import RightAlignedLink from './RightAlignedLink';
 import { Consumer } from '../../store.jsx';
-import { isEmail, isLength, isAlphanumeric } from 'validator';
+import { isEmail, isLength } from 'validator';
 
 class Register extends Component {
   constructor(props) {
     super(props);
-
-    this.validate = {
-      email: (value) => {
-        if (!isEmail(value)) {
-          this.setError('잘못된 이메일 형식 입니다.');
-          return false;
-        }
-        return true;
-      },
-      username: (value) => {
-        if (!isAlphanumeric(value) || !isLength(value, { min: 4, max: 15 })) {
-          this.setError(
-            '아이디는 4~15 글자의 알파벳 혹은 숫자로 이뤄져야 합니다.'
-          );
-          return false;
-        }
-        return true;
-      },
-      password: (value) => {
-        if (!isLength(value, { min: 6 })) {
-          this.setError('비밀번호를 6자 이상 입력하세요.');
-          return false;
-        }
-        this.setError(null); // 이메일과 아이디는 에러 null 처리를 중복확인 부분에서 하게 됩니다
-        return true;
-      },
-      passwordConfirm: (value) => {
-        if (this.props.form.get('password') !== value) {
-          this.setError('비밀번호확인이 일치하지 않습니다.');
-          return false;
-        }
-        this.setError(null);
-        return true;
-      },
-    };
-
     this.state = {
       email: '',
       password: '',
@@ -52,28 +16,32 @@ class Register extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.checkValidation = this.checkValidation.bind(this);
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const { currentEditing, editing } = this.props;
-    if (!currentEditing) {
-      this.props.postGrade(this.state);
-      this.setState({
-        name: '',
-        course: '',
-        grade: '',
-      });
+  checkValidation() {
+    const { email, password, passwordConfirm } = this.state;
+    if (!isEmail(email)) {
+      this.setError('잘못된 이메일 형식 입니다.');
+      return false;
     }
-    if (currentEditing) {
-      this.props.updateGrade(currentEditing, this.state);
-      this.setState({
-        name: '',
-        course: '',
-        grade: '',
-      });
-      editing();
+    if (!isLength(password, { min: 6 })) {
+      this.setError('비밀번호를 6자 이상 입력하세요.');
+      return false;
     }
+    if (password !== passwordConfirm) {
+      this.setError('비밀번호확인이 일치하지 않습니다.');
+      return false;
+    }
+    return true;
+  }
+
+  handleSubmit() {
+    this.setState({
+      email: '',
+      password: '',
+      passwordConfirm: '',
+    });
   }
 
   handleChange(e) {
@@ -85,6 +53,8 @@ class Register extends Component {
   }
 
   render() {
+    const { email, password } = this.state;
+    console.log(this.state, 'hello');
     return (
       <AuthContent title="Sign Up">
         <InputWithLabel
@@ -110,9 +80,20 @@ class Register extends Component {
           placeholder="passwordConfirm"
           type="password"
         />
-        <AuthButton>Sign Up</AuthButton>
-        <RightAlignedLink to="/auth/login">Login</RightAlignedLink>
-        <Consumer>{({ grades }) => console.log(grades, 'hey')}</Consumer>
+        <Consumer>
+          {({ createUser }) => (
+            <AuthButton
+              onClick={() => {
+                this.checkValidation();
+                createUser({ email, password });
+                this.handleSubmit();
+              }}
+            >
+              Sign Up
+            </AuthButton>
+          )}
+        </Consumer>
+        <RightAlignedLink to="/auth/login">Sign In</RightAlignedLink>
       </AuthContent>
     );
   }
