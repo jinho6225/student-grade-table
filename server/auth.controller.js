@@ -54,7 +54,6 @@ exports.localRegister = async (req, res) => {
     httpOnly: true,
   };
   res.cookie('access_token', token, options);
-
   res.status(200).send(`${account.dataValues.email} register completed!`);
 };
 

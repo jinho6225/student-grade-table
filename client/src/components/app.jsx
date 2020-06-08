@@ -21,17 +21,32 @@ export default class App extends Component {
         body: JSON.stringify({ email, password }),
       })
         .then((res) => res)
-        .then((data) => console.log(data))
+        .then((data) => console.log(data, 'register'))
         .catch((error) => {
           console.error('Error:', error);
         });
     };
 
+    this.loginUser = ({ email, password }) => {
+      fetch('/auth/login/local', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
+        .then((res) => res)
+        .then((data) => console.log(data, 'login'))
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    };
     this.state = {
       grades: [],
       isEditing: 0,
       currentEditing: null,
       createUser: this.createUser,
+      loginUser: this.loginUser,
     };
     this.postGrade = this.postGrade.bind(this);
     this.getGrade = this.getGrade.bind(this);
