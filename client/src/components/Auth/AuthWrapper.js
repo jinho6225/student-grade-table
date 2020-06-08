@@ -14,6 +14,9 @@ const Positioner = styled.div`
 // 너비, 그림자 설정
 const ShadowedBox = styled.div`
   width: 500px;
+  @media (max-width: 640px) {
+    width: 300px;
+  }
 `;
 
 // 로고
@@ -23,6 +26,9 @@ const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (max-width: 640px) {
+    height: 3rem;
+  }
 `;
 
 const Logo = styled(Link)`
@@ -31,12 +37,18 @@ const Logo = styled(Link)`
   font-size: 2.4rem;
   letter-spacing: 5px;
   text-decoration: none;
+  @media (max-width: 640px) {
+    font-size: 1.4rem;
+  }
 `;
 
 const Contents = styled.div`
   background: #fffff3;
   padding: 2rem;
   height: auto;
+  @media (max-width: 640px) {
+    padding: 1rem;
+  }
 `;
 
 const AuthWrapper = ({ children }) => (

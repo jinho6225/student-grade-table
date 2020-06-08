@@ -12,6 +12,10 @@ const Label = styled.div`
   font-size: 1rem;
   color: ${oc.gray[6]};
   margin-bottom: 0.25rem;
+  @media (max-width: 640px) {
+    font-size: 0.8rem;
+    margin-bottom: 0.15rem;
+  }
 `;
 
 const Input = styled.input`
@@ -25,6 +29,9 @@ const Input = styled.input`
   padding-right: 0.5rem;
   ::placeholder {
     color: ${oc.gray[3]};
+  }
+  @media (max-width: 640px) {
+    font-size: 1rem;
   }
 `;
 
