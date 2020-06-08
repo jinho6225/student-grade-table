@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import LoginButton from './LoginButton';
-import { Link } from 'react-router-dom';
+import AuthWrapper from '../Auth/AuthWrapper';
+import { Route } from 'react-router-dom';
+import Login from '../Auth/Login';
+import Register from '../Auth/Register';
 
 class Auth extends Component {
   render() {
     return (
-      <div className="d-flex align-items-center">
-        <p className="m-0">
-          <Link to="/">Home</Link>
-        </p>
-        <LoginButton />
-      </div>
+      <AuthWrapper>
+        <Route path="/auth/login" component={Login} />
+        <Route path="/auth/register" component={Register} />
+      </AuthWrapper>
     );
   }
 }

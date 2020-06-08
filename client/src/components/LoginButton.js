@@ -5,17 +5,17 @@ import { Link } from 'react-router-dom';
 
 const BorderedButton = styled(Link)`
   font-weight: 600;
-  color: ${oc.cyan[9]};
-  border: 1px solid ${oc.cyan[9]};
-  padding: 0.5rem;
+  color: black;
+  border: 1px solid ${oc.cyan[11]};
+  padding: 0.4rem;
   margin-left: 0.3rem;
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 6px;
   text-decoration: none;
   transition: 0.2s all;
 
   &:hover {
-    background: ${oc.cyan[9]};
+    background: ${oc.cyan[11]};
     color: white;
   }
 
