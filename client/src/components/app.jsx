@@ -1,10 +1,13 @@
-import React from 'react';
-import Header from './header.jsx';
+import React, { Component } from 'react';
+import HeaderContainer from './HeaderContainer';
 import Footer from './footer.jsx';
 import GradeTable from './grade-table.jsx';
 import GradeForm from './grade-form.jsx';
+import Auth from './Pages/Auth';
 
-export default class App extends React.Component {
+import { Switch, Route } from 'react-router-dom';
+
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -145,31 +148,39 @@ export default class App extends React.Component {
 
   render() {
     const { grades, isEditing, currentEditing } = this.state;
-    console.log(grades, 'grades?');
     return (
       <>
-        <Header average={this.getAverageGrade()} getGrade={this.getGrade} />
-        <main className="container d-flex flex-wrap justify-content-around py-5">
-          <GradeTable
-            grades={grades}
-            deleteGrade={this.deleteGrade}
-            editing={this.editing}
-            currentUpdating={this.currentUpdating}
-            getGradeByName={this.getGradeByName}
-            getGradeByCourse={this.getGradeByCourse}
-            getOneByName={this.getOneByName}
-            getOneByCourse={this.getOneByCourse}
-          />
-          <GradeForm
-            postGrade={this.postGrade}
-            currentEditing={currentEditing}
-            isEditing={isEditing}
-            editing={this.editing}
-            currentUpdating={this.currentUpdating}
-            updateGrade={this.updateGrade}
-          />
-        </main>
-        <Footer />
+        <Switch>
+          <Route exact path="/">
+            <HeaderContainer
+              average={this.getAverageGrade()}
+              getGrade={this.getGrade}
+            />
+            <main className="container d-flex flex-wrap justify-content-around py-5">
+              <GradeTable
+                grades={grades}
+                deleteGrade={this.deleteGrade}
+                editing={this.editing}
+                currentUpdating={this.currentUpdating}
+                getGradeByName={this.getGradeByName}
+                getGradeByCourse={this.getGradeByCourse}
+                getOneByName={this.getOneByName}
+                getOneByCourse={this.getOneByCourse}
+              />
+              <GradeForm
+                postGrade={this.postGrade}
+                currentEditing={currentEditing}
+                isEditing={isEditing}
+                editing={this.editing}
+                currentUpdating={this.currentUpdating}
+                updateGrade={this.updateGrade}
+              />
+            </main>
+            <Footer />
+          </Route>
+
+          <Route path="/auth" component={Auth} />
+        </Switch>
       </>
     );
   }
