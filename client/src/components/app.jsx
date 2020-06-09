@@ -5,7 +5,6 @@ import GradeTable from './grade-table.jsx';
 import GradeForm from './grade-form.jsx';
 import Auth from './Pages/Auth';
 import { Provider } from '../store.jsx';
-
 import { Switch, Route } from 'react-router-dom';
 
 export default class App extends Component {
@@ -21,7 +20,9 @@ export default class App extends Component {
         body: JSON.stringify({ email, password }),
       })
         .then((res) => res)
-        .then((data) => console.log(data, 'register'))
+        .then((data) => {
+          console.log(data, 'create');
+        })
         .catch((error) => {
           console.error('Error:', error);
         });
@@ -36,7 +37,9 @@ export default class App extends Component {
         body: JSON.stringify({ email, password }),
       })
         .then((res) => res)
-        .then((data) => console.log(data, 'login'))
+        .then((data) => {
+          console.log(data, 'login');
+        })
         .catch((error) => {
           console.error('Error:', error);
         });

@@ -5,6 +5,7 @@ import AuthButton from './AuthButton';
 import RightAlignedLink from './RightAlignedLink';
 import { Consumer } from '../../store.jsx';
 import storage from '../../lib/storage';
+import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -58,6 +59,7 @@ class Login extends Component {
             <AuthButton
               onClick={() => {
                 loginUser({ email, password });
+                this.props.history.push('/');
                 this.handleSubmit();
               }}
             >
@@ -72,4 +74,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

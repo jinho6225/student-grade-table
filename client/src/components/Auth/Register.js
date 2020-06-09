@@ -6,6 +6,7 @@ import RightAlignedLink from './RightAlignedLink';
 import { Consumer } from '../../store.jsx';
 import { isEmail, isLength } from 'validator';
 import storage from '../../lib/storage';
+import { withRouter } from 'react-router-dom';
 
 class Register extends Component {
   constructor(props) {
@@ -87,6 +88,7 @@ class Register extends Component {
               onClick={() => {
                 this.checkValidation();
                 createUser({ email, password });
+                this.props.history.push('/');
                 this.handleSubmit();
               }}
             >
@@ -100,4 +102,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default withRouter(Register);
