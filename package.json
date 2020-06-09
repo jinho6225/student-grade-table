@@ -75,15 +75,29 @@
     }
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "immutable": "^4.0.0-rc.12",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+    "mysql2": "^2.1.0",
     "nodemon": "^2.0.3",
-    "pm2": "^4.2.3",
+    "open-color": "^1.7.0",
+    "pm2": "^4.4.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-actions": "^2.6.5",
+    "sequelize": "^5.21.12",
+    "styled-components": "^5.1.1",
+    "validator": "^13.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.7.7",

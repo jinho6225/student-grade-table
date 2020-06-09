@@ -1,24 +1,34 @@
-/* eslint-disable no-console */
+/*global require, module, process*/
 
-var mysql = require('mysql');
+require('dotenv').config();
+// var mysql = require('mysql');
+const { Sequelize } = require('sequelize');
 
-var db = mysql.createConnection({
-<<<<<<< HEAD
-  host: "localhost",
-  user: "root",
-  password: "j1065718",
-  database: "sgt"
-=======
+//var db = mysql.createConnection({
+//  host: 'localhost',
+//  user: 'root',
+//  password: 'j1065718',
+//  database: 'sgt'
+// var db = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: process.env.password,
+//   database: 'sgt',
+// });
+
+const db = new Sequelize('sgt', 'root', process.env.password, {
   host: 'localhost',
-  user: 'root',
-  password: 'j1065718',
-  database: 'sgt'
->>>>>>> d0d31efb46fdf3182961134d5a984be85bf78278
+  dialect: 'mysql',
 });
 
-db.connect(err => {
-  if (err) throw err;
-  console.log('Connected!');
-});
+// db.connect((err) => {
+//   if (err) throw err;
+//   /* eslint-disable no-console */
+//   console.log('Connected!');
+// });
+
+db.authenticate()
+  .then(() => console.log('connected with SEQUELIZE'))
+  .catch((err) => console.log('somethin wrong'));
 
 module.exports = db;

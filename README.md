@@ -3,15 +3,23 @@
 ## Description
 
 A fullstack application where teachers can set grades for students.
+without signIn, it cannot add and modify it. Mobile responsive design
 
 ## Technologies Used
 
 - React.js
+- Context API
 - Webpack 4
 - Bootstrap 4
+- Styled Component
 - Node.js
 - Express.js
+- Crypto
+- validator
 - MySQL
+- Sequelize
+- JWT(jsonwebtoken)
+- LocalStorage
 - HTML5
 - CSS3
 - AWS EC2
@@ -22,6 +30,9 @@ Try the application live at [https://gradetable.jinho6225.com/](https://gradetab
 
 ## Features
 
+- User can sign up for implement data
+- User can sign un
+- User can sign out
 - User can view all grades.
 - User can sort all grades by name or by course
 - User can view each course grades.
@@ -33,7 +44,9 @@ Try the application live at [https://gradetable.jinho6225.com/](https://gradetab
 
 ## Preview
 
-![Grader](/client/dist/sgt.gif)
+![Grader](/client/dist/gradetable.gif)
+
+![GraderMobile](/client/dist/mobile.gif)
 
 ## Development
 

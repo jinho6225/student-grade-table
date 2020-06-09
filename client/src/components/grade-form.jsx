@@ -17,19 +17,26 @@ class GradeForm extends Component {
     e.preventDefault();
     const { editing, currentUpdating } = this.props;
     editing();
-    currentUpdating(null)
+    currentUpdating(null);
+    this.setState({
+      name: '',
+      course: '',
+      grade: '',
+    });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { currentEditing, editing } = this.props;
+    const { currentEditing, editing, isLogined } = this.props;
     if (!currentEditing) {
-      this.props.postGrade(this.state);
-      this.setState({
-        name: '',
-        course: '',
-        grade: '',
-      });
+      if (isLogined) {
+        this.props.postGrade(this.state);
+        this.setState({
+          name: '',
+          course: '',
+          grade: '',
+        });
+      }
     }
     if (currentEditing) {
       this.props.updateGrade(currentEditing, this.state);
@@ -46,7 +53,7 @@ class GradeForm extends Component {
     e.preventDefault();
     const { name, value } = e.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
 
@@ -75,7 +82,7 @@ class GradeForm extends Component {
       <div className="col-12 order-1 col-md-4 order-md-2">
         <h5 className="mb-2">{isEditing ? 'Update Grade' : 'Add Grade'}</h5>
         <div>
-          <form onSubmit={this.handleSubmit}>
+          <form>
             <div className="input-group mb-3">
               <div className="input-group-prepend">
                 <div className="input-group-text">
@@ -123,8 +130,12 @@ class GradeForm extends Component {
                 placeholder="Grade"
               />
             </div>
+
             <div className="input-group mb-3">
-              <button className="btn btn-success mx-1">
+              <button
+                className="btn btn-success mx-1"
+                onClick={this.handleSubmit}
+              >
                 {isEditing ? 'Update' : 'Add'}
               </button>
               <button

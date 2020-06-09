@@ -1,16 +1,66 @@
-import React from 'react';
-import Header from './header.jsx';
+import React, { Component } from 'react';
+import HeaderContainer from './HeaderContainer';
 import Footer from './footer.jsx';
 import GradeTable from './grade-table.jsx';
 import GradeForm from './grade-form.jsx';
+import Auth from './Pages/Auth';
+import { Provider } from '../store.jsx';
+import { Switch, Route } from 'react-router-dom';
+import storage from '../lib/storage';
 
-export default class App extends React.Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
+
+    this.createUser = ({ email, password }) => {
+      fetch('/auth/register/local', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
+        .then((res) => res)
+        .then((data) => {
+          if (data.status === 200) {
+            this.setState({
+              isLogined: !this.state.isLogined,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    };
+
+    this.loginUser = ({ email, password }) => {
+      fetch('/auth/login/local', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
+        .then((res) => res)
+        .then((data) => {
+          if (data.status === 200) {
+            this.setState({
+              isLogined: !this.state.isLogined,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    };
     this.state = {
       grades: [],
       isEditing: 0,
       currentEditing: null,
+      createUser: this.createUser,
+      loginUser: this.loginUser,
+      isLogined: false,
+      currentUser: null,
     };
     this.postGrade = this.postGrade.bind(this);
     this.getGrade = this.getGrade.bind(this);
@@ -20,8 +70,21 @@ export default class App extends React.Component {
     this.editing = this.editing.bind(this);
     this.getGradeByName = this.getGradeByName.bind(this);
     this.getGradeByCourse = this.getGradeByCourse.bind(this);
-    this.getOneByName = this.getOneByName.bind(this)
-    this.getOneByCourse = this.getOneByCourse.bind(this)
+    this.getOneByName = this.getOneByName.bind(this);
+    this.getOneByCourse = this.getOneByCourse.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.isLogined !== prevState.isLogined) {
+      this.setState({
+        currentUser: storage.get('loggedInfo'),
+      });
+    }
+  }
+
+  initializeUserInfo() {
+    const loggedInfo = storage.get('loggedInfo');
+    if (!loggedInfo) return;
   }
 
   getOneByCourse(course) {
@@ -64,7 +127,7 @@ export default class App extends React.Component {
 
   editing(id) {
     this.setState({
-      isEditing: id
+      isEditing: id,
     });
   }
 
@@ -82,9 +145,9 @@ export default class App extends React.Component {
       },
       body: JSON.stringify(obj),
     })
-      .then((res) => res.json())
+      .then((res) => res)
       .then((grade) => {
-        if (grade.affectedRows > 0) {
+        if (grade.status === 204) {
           this.getGrade();
         }
       })
@@ -97,11 +160,9 @@ export default class App extends React.Component {
     fetch(`/sgt/${id}`, {
       method: 'DELETE',
     })
-      .then((res) => res.json())
-      .then((grade) => {
-        if (grade.affectedRows > 0) {
-          this.getGrade();
-        }
+      .then((res) => res)
+      .then(() => {
+        this.getGrade();
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -118,7 +179,7 @@ export default class App extends React.Component {
     })
       .then((res) => res.json())
       .then((grade) => {
-        if (grade.affectedRows > 0) {
+        if (grade) {
           this.getGrade();
         }
       })
@@ -129,6 +190,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.getGrade();
+    this.initializeUserInfo();
   }
 
   getAverageGrade() {
@@ -140,36 +202,57 @@ export default class App extends React.Component {
   getGrade() {
     fetch('/sgt')
       .then((res) => res.json())
-      .then((grades) => this.setState({ grades }));
+      .then((grades) => {
+        this.setState({ grades });
+      });
   }
 
   render() {
-    const { grades, isEditing, currentEditing } = this.state;
+    const { grades, isEditing, currentEditing, isLogined } = this.state;
     return (
       <>
-        <Header average={this.getAverageGrade()}
-        getGrade={this.getGrade} />
-        <main className="container d-flex flex-wrap justify-content-around py-5">
-          <GradeTable
-            grades={grades}
-            deleteGrade={this.deleteGrade}
-            editing={this.editing}
-            currentUpdating={this.currentUpdating}
-            getGradeByName={this.getGradeByName}
-            getGradeByCourse={this.getGradeByCourse}
-            getOneByName={this.getOneByName}
-            getOneByCourse={this.getOneByCourse}
-          />
-          <GradeForm
-            postGrade={this.postGrade}
-            currentEditing={currentEditing}
-            isEditing={isEditing}
-            editing={this.editing}
-            currentUpdating={this.currentUpdating}
-            updateGrade={this.updateGrade}
-          />
-        </main>
-        <Footer />
+        <Switch>
+          <Route exact path="/">
+            <Provider value={this.state}>
+              <HeaderContainer
+                average={this.getAverageGrade()}
+                getGrade={this.getGrade}
+              />
+            </Provider>
+
+            <main className="container d-flex flex-wrap justify-content-around py-5">
+              <Provider value={this.state}>
+                <GradeTable
+                  grades={grades}
+                  deleteGrade={this.deleteGrade}
+                  editing={this.editing}
+                  currentUpdating={this.currentUpdating}
+                  getGradeByName={this.getGradeByName}
+                  getGradeByCourse={this.getGradeByCourse}
+                  getOneByName={this.getOneByName}
+                  getOneByCourse={this.getOneByCourse}
+                />
+              </Provider>
+
+              <GradeForm
+                isLogined={isLogined}
+                postGrade={this.postGrade}
+                currentEditing={currentEditing}
+                isEditing={isEditing}
+                editing={this.editing}
+                currentUpdating={this.currentUpdating}
+                updateGrade={this.updateGrade}
+              />
+            </main>
+            <Footer />
+          </Route>
+
+          <Route path="/auth" component={Auth}>
+            <Provider value={this.state}>
+              <Auth />
+            </Provider>
+          </Route>
+        </Switch>
       </>
     );
   }
