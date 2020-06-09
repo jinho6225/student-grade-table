@@ -1,7 +1,7 @@
 import React from 'react';
 import Grade from './grade.jsx';
 
-const GradeTable = props => {
+const GradeTable = (props) => {
   const {
     grades,
     deleteGrade,
@@ -10,7 +10,7 @@ const GradeTable = props => {
     getGradeByName,
     getGradeByCourse,
     getOneByName,
-    getOneByCourse
+    getOneByCourse,
   } = props;
   return (
     <div className="col-12 order-2 col-md-8 order-md-1">
@@ -38,7 +38,7 @@ const GradeTable = props => {
           </tr>
         </thead>
         <tbody>
-          {grades.map(grade => (
+          {grades.map((grade) => (
             <Grade
               key={grade.id}
               grade={grade}

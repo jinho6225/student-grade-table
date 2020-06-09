@@ -6,6 +6,7 @@ import GradeForm from './grade-form.jsx';
 import Auth from './Pages/Auth';
 import { Provider } from '../store.jsx';
 import { Switch, Route } from 'react-router-dom';
+import storage from '../lib/storage';
 
 export default class App extends Component {
   constructor(props) {
@@ -21,7 +22,11 @@ export default class App extends Component {
       })
         .then((res) => res)
         .then((data) => {
-          console.log(data, 'create');
+          if (data.status === 200) {
+            this.setState({
+              isLogined: !this.state.isLogined,
+            });
+          }
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -38,7 +43,11 @@ export default class App extends Component {
       })
         .then((res) => res)
         .then((data) => {
-          console.log(data, 'login');
+          if (data.status === 200) {
+            this.setState({
+              isLogined: !this.state.isLogined,
+            });
+          }
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -50,6 +59,8 @@ export default class App extends Component {
       currentEditing: null,
       createUser: this.createUser,
       loginUser: this.loginUser,
+      isLogined: false,
+      currentUser: null,
     };
     this.postGrade = this.postGrade.bind(this);
     this.getGrade = this.getGrade.bind(this);
@@ -61,6 +72,14 @@ export default class App extends Component {
     this.getGradeByCourse = this.getGradeByCourse.bind(this);
     this.getOneByName = this.getOneByName.bind(this);
     this.getOneByCourse = this.getOneByCourse.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.isLogined !== prevState.isLogined) {
+      this.setState({
+        currentUser: storage.get('loggedInfo'),
+      });
+    }
   }
 
   getOneByCourse(course) {
@@ -183,36 +202,40 @@ export default class App extends Component {
   }
 
   render() {
-    const { grades, isEditing, currentEditing } = this.state;
+    const { grades, isEditing, currentEditing, isLogined } = this.state;
     return (
       <>
         <Switch>
           <Route exact path="/">
-            <HeaderContainer
-              average={this.getAverageGrade()}
-              getGrade={this.getGrade}
-            />
-            <main className="container d-flex flex-wrap justify-content-around py-5">
-              <GradeTable
-                grades={grades}
-                deleteGrade={this.deleteGrade}
-                editing={this.editing}
-                currentUpdating={this.currentUpdating}
-                getGradeByName={this.getGradeByName}
-                getGradeByCourse={this.getGradeByCourse}
-                getOneByName={this.getOneByName}
-                getOneByCourse={this.getOneByCourse}
+            <Provider value={this.state}>
+              <HeaderContainer
+                average={this.getAverageGrade()}
+                getGrade={this.getGrade}
               />
-              <GradeForm
-                postGrade={this.postGrade}
-                currentEditing={currentEditing}
-                isEditing={isEditing}
-                editing={this.editing}
-                currentUpdating={this.currentUpdating}
-                updateGrade={this.updateGrade}
-              />
-            </main>
-            <Footer />
+
+              <main className="container d-flex flex-wrap justify-content-around py-5">
+                <GradeTable
+                  isLogined={isLogined}
+                  grades={grades}
+                  deleteGrade={this.deleteGrade}
+                  editing={this.editing}
+                  currentUpdating={this.currentUpdating}
+                  getGradeByName={this.getGradeByName}
+                  getGradeByCourse={this.getGradeByCourse}
+                  getOneByName={this.getOneByName}
+                  getOneByCourse={this.getOneByCourse}
+                />
+                <GradeForm
+                  postGrade={this.postGrade}
+                  currentEditing={currentEditing}
+                  isEditing={isEditing}
+                  editing={this.editing}
+                  currentUpdating={this.currentUpdating}
+                  updateGrade={this.updateGrade}
+                />
+              </main>
+              <Footer />
+            </Provider>
           </Route>
 
           <Route path="/auth" component={Auth}>
