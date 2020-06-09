@@ -17,28 +17,37 @@ class GradeForm extends Component {
     e.preventDefault();
     const { editing, currentUpdating } = this.props;
     editing();
-    currentUpdating(null)
+    currentUpdating(null);
+    this.setState({
+      name: '',
+      course: '',
+      grade: '',
+    });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { currentEditing, editing } = this.props;
+    const { currentEditing, editing, isLogined } = this.props;
     if (!currentEditing) {
-      this.props.postGrade(this.state);
-      this.setState({
-        name: '',
-        course: '',
-        grade: '',
-      });
+      if (isLogined) {
+        this.props.postGrade(this.state);
+        this.setState({
+          name: '',
+          course: '',
+          grade: '',
+        });
+      }
     }
     if (currentEditing) {
-      this.props.updateGrade(currentEditing, this.state);
-      this.setState({
-        name: '',
-        course: '',
-        grade: '',
-      });
-      editing();
+      if (isLogined) {
+        this.props.updateGrade(currentEditing, this.state);
+        this.setState({
+          name: '',
+          course: '',
+          grade: '',
+        });
+        editing();
+      }
     }
   }
 
@@ -46,7 +55,7 @@ class GradeForm extends Component {
     e.preventDefault();
     const { name, value } = e.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
 
