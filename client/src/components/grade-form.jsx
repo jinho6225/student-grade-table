@@ -39,15 +39,13 @@ class GradeForm extends Component {
       }
     }
     if (currentEditing) {
-      if (isLogined) {
-        this.props.updateGrade(currentEditing, this.state);
-        this.setState({
-          name: '',
-          course: '',
-          grade: '',
-        });
-        editing();
-      }
+      this.props.updateGrade(currentEditing, this.state);
+      this.setState({
+        name: '',
+        course: '',
+        grade: '',
+      });
+      editing();
     }
   }
 
@@ -84,7 +82,7 @@ class GradeForm extends Component {
       <div className="col-12 order-1 col-md-4 order-md-2">
         <h5 className="mb-2">{isEditing ? 'Update Grade' : 'Add Grade'}</h5>
         <div>
-          <form onSubmit={this.handleSubmit}>
+          <form>
             <div className="input-group mb-3">
               <div className="input-group-prepend">
                 <div className="input-group-text">
@@ -132,8 +130,12 @@ class GradeForm extends Component {
                 placeholder="Grade"
               />
             </div>
+
             <div className="input-group mb-3">
-              <button className="btn btn-success mx-1">
+              <button
+                className="btn btn-success mx-1"
+                onClick={this.handleSubmit}
+              >
                 {isEditing ? 'Update' : 'Add'}
               </button>
               <button

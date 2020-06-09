@@ -82,6 +82,11 @@ export default class App extends Component {
     }
   }
 
+  initializeUserInfo() {
+    const loggedInfo = storage.get('loggedInfo');
+    if (!loggedInfo) return;
+  }
+
   getOneByCourse(course) {
     fetch(`/sgt/course/${course}`)
       .then((res) => res.json())
@@ -185,6 +190,7 @@ export default class App extends Component {
 
   componentDidMount() {
     this.getGrade();
+    this.initializeUserInfo();
   }
 
   getAverageGrade() {
@@ -212,10 +218,11 @@ export default class App extends Component {
                 average={this.getAverageGrade()}
                 getGrade={this.getGrade}
               />
+            </Provider>
 
-              <main className="container d-flex flex-wrap justify-content-around py-5">
+            <main className="container d-flex flex-wrap justify-content-around py-5">
+              <Provider value={this.state}>
                 <GradeTable
-                  isLogined={isLogined}
                   grades={grades}
                   deleteGrade={this.deleteGrade}
                   editing={this.editing}
@@ -225,17 +232,19 @@ export default class App extends Component {
                   getOneByName={this.getOneByName}
                   getOneByCourse={this.getOneByCourse}
                 />
-                <GradeForm
-                  postGrade={this.postGrade}
-                  currentEditing={currentEditing}
-                  isEditing={isEditing}
-                  editing={this.editing}
-                  currentUpdating={this.currentUpdating}
-                  updateGrade={this.updateGrade}
-                />
-              </main>
-              <Footer />
-            </Provider>
+              </Provider>
+
+              <GradeForm
+                isLogined={isLogined}
+                postGrade={this.postGrade}
+                currentEditing={currentEditing}
+                isEditing={isEditing}
+                editing={this.editing}
+                currentUpdating={this.currentUpdating}
+                updateGrade={this.updateGrade}
+              />
+            </main>
+            <Footer />
           </Route>
 
           <Route path="/auth" component={Auth}>
