@@ -5,6 +5,8 @@ import AuthButton from './AuthButton';
 import RightAlignedLink from './RightAlignedLink';
 import { Consumer } from '../../store.jsx';
 import { isEmail, isLength } from 'validator';
+import storage from '../../lib/storage';
+import { withRouter } from 'react-router-dom';
 
 class Register extends Component {
   constructor(props) {
@@ -22,21 +24,22 @@ class Register extends Component {
   checkValidation() {
     const { email, password, passwordConfirm } = this.state;
     if (!isEmail(email)) {
-      this.setError('잘못된 이메일 형식 입니다.');
+      // this.setError('잘못된 이메일 형식 입니다.');
       return false;
     }
     if (!isLength(password, { min: 6 })) {
-      this.setError('비밀번호를 6자 이상 입력하세요.');
+      // this.setError('비밀번호를 6자 이상 입력하세요.');
       return false;
     }
     if (password !== passwordConfirm) {
-      this.setError('비밀번호확인이 일치하지 않습니다.');
+      // this.setError('비밀번호확인이 일치하지 않습니다.');
       return false;
     }
     return true;
   }
 
   handleSubmit() {
+    storage.set('loggedInfo', this.state.email);
     this.setState({
       email: '',
       password: '',
@@ -54,7 +57,6 @@ class Register extends Component {
 
   render() {
     const { email, password } = this.state;
-    console.log(this.state, 'hello');
     return (
       <AuthContent title="Sign Up">
         <InputWithLabel
@@ -86,6 +88,7 @@ class Register extends Component {
               onClick={() => {
                 this.checkValidation();
                 createUser({ email, password });
+                this.props.history.push('/');
                 this.handleSubmit();
               }}
             >
@@ -99,4 +102,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default withRouter(Register);
