@@ -7,10 +7,10 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  entry: `${srcPath}/index.jsx`,
+  entry: srcPath,
   output: {
     filename: 'bundle.js',
-    path: `${publicPath}`,
+    path: publicPath,
   },
   module: {
     rules: [
