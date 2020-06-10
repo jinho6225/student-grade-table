@@ -3,7 +3,7 @@ import HeaderContainer from './HeaderContainer';
 import Footer from './footer.jsx';
 import GradeTable from './grade-table.jsx';
 import GradeForm from './grade-form.jsx';
-import Auth from './Pages/Auth';
+import Auth from './pages/Auth';
 import { Provider } from '../store.jsx';
 import { Switch, Route } from 'react-router-dom';
 import storage from '../lib/storage';
