@@ -1,7 +1,7 @@
 const path = require('path');
 
 const srcPath = path.resolve(__dirname, 'client/src');
-const publicPath = path.resolve(__dirname, 'client');
+const publicPath = path.resolve(__dirname, 'client/dist');
 
 module.exports = {
   resolve: {
