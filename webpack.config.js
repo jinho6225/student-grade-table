@@ -1,16 +1,16 @@
 const path = require('path');
 
 const srcPath = path.resolve(__dirname, 'client/src');
-const publicPath = path.resolve(__dirname, 'client/dist');
+const publicPath = path.resolve(__dirname, 'client');
 
 module.exports = {
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
   entry: `${srcPath}/index.jsx`,
   output: {
     filename: 'bundle.js',
-    path: `${publicPath}`
+    path: `${publicPath}`,
   },
   module: {
     rules: [
@@ -20,10 +20,10 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            plugins: ['@babel/plugin-transform-react-jsx']
-          }
-        }
-      }
-    ]
-  }
+            plugins: ['@babel/plugin-transform-react-jsx'],
+          },
+        },
+      },
+    ],
+  },
 };
