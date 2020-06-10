@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from './Header';
+import Header from './header.jsx';
 import LoginButton from './LoginButton';
 import { Consumer } from '../store.jsx';
 import styled from 'styled-components';
