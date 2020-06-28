@@ -87,8 +87,8 @@ export default class App extends Component {
     const { isLogined, currentUser } = this.state;
     if (!loggedInfo) return;
     this.setState({
+      currentUser: storage.get('loggedInfo'),
       isLogined: true,
-      currentUser: loggedInfo,
     });
   }
 
