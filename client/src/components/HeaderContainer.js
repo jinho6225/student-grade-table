@@ -31,20 +31,20 @@ class HeaderContainer extends Component {
     return (
       <Header average={average} getGrade={getGrade}>
         <Consumer>
-          {({ isLogined, currentUser }) =>
-            isLogined ? (
+          {({ isLogined, currentUser }) => {
+            return isLogined ? (
               <LoginDiv
                 onClick={() => {
                   storage.remove('loggedInfo');
                   window.location.href = '/';
                 }}
               >
-                {currentUser}
+                {`${currentUser.split('@')[0]} / LogOut`}
               </LoginDiv>
             ) : (
               <LoginButton />
-            )
-          }
+            );
+          }}
         </Consumer>
       </Header>
     );
