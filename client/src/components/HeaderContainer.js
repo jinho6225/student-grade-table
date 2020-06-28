@@ -32,6 +32,12 @@ class HeaderContainer extends Component {
       <Header average={average} getGrade={getGrade}>
         <Consumer>
           {({ isLogined, currentUser }) => {
+            console.log(currentUser);
+            console.log(typeof currentUser, 'type');
+            let result =
+              currentUser === null
+                ? `...loading`
+                : `${currentUser.split('@')[0]} / LogOUt`;
             return isLogined ? (
               <LoginDiv
                 onClick={() => {
@@ -39,7 +45,7 @@ class HeaderContainer extends Component {
                   window.location.href = '/';
                 }}
               >
-                {`${currentUser.split('@')[0]} / LogOut`}
+                {result}
               </LoginDiv>
             ) : (
               <LoginButton />

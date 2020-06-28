@@ -84,7 +84,6 @@ export default class App extends Component {
 
   initializeUserInfo() {
     const loggedInfo = storage.get('loggedInfo');
-    const { isLogined, currentUser } = this.state;
     if (!loggedInfo) return;
     this.setState({
       isLogined: true,
