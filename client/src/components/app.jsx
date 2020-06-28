@@ -24,7 +24,7 @@ export default class App extends Component {
         .then((data) => {
           if (data.status === 200) {
             this.setState({
-              isLogined: !this.state.isLogined,
+              isLogined: true,
             });
           }
         })
@@ -45,7 +45,7 @@ export default class App extends Component {
         .then((data) => {
           if (data.status === 200) {
             this.setState({
-              isLogined: !this.state.isLogined,
+              isLogined: true,
             });
           }
         })
@@ -84,7 +84,12 @@ export default class App extends Component {
 
   initializeUserInfo() {
     const loggedInfo = storage.get('loggedInfo');
+    const { isLogined, currentUser } = this.state;
     if (!loggedInfo) return;
+    this.setState({
+      isLogined: true,
+      currentUser: loggedInfo,
+    });
   }
 
   getOneByCourse(course) {
