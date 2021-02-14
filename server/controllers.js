@@ -1,11 +1,11 @@
 /*global require, module*/
 /* eslint-disable no-console */
 
-const db = require('../db/index.js');
-const { DataTypes } = require('sequelize');
+const db = require("../db/index.js");
+const { DataTypes } = require("sequelize");
 
 const Sgt = db.define(
-  'sgt',
+  "sgt",
   {
     name: {
       type: DataTypes.STRING,
@@ -84,7 +84,7 @@ const controllers = {
     let name = null;
     try {
       name = await Sgt.findAll({
-        order: [['name', 'ASC']],
+        order: [["name", "ASC"]],
       });
     } catch (e) {
       res.status(400).send(e);
@@ -96,7 +96,7 @@ const controllers = {
     let course = null;
     try {
       course = await Sgt.findAll({
-        order: [['course', 'ASC']],
+        order: [["course", "ASC"]],
       });
     } catch (e) {
       res.status(400).send(e);

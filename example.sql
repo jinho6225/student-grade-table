@@ -28,18 +28,9 @@ CREATE TABLE `sgt`
 -- Dumping data for table `stg`
 --
 
-INSERT INTO `
-sgt`
-VALUES
-  (1, 'Uzair', 'html', 99);
-INSERT INTO `
-sgt`
-VALUES
-  (2, 'Cody', 'css', 100);
-INSERT INTO `
-sgt`
-VALUES
-  (3, 'Dae', 'javascript', 100);
+INSERT INTO `sgt` VALUES(1, 'Uzair', 'html', 99);
+INSERT INTO `sgt` VALUES(2, 'Cody', 'css', 100);
+INSERT INTO `sgt` VALUES(3, 'Dae', 'javascript', 100);
 
 --
 -- Table structure for table `topic`
