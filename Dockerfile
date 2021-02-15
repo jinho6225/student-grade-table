@@ -1,7 +1,13 @@
-FROM node:12-alpine
-WORKDIR /student-grade-table
+FROM node:8
+
+WORKDIR /usr/src/app
+
 COPY package*.json ./
+
+RUN npm install
+
 COPY . .
-RUN npm install --silent
+
+EXPOSE 8080
+
 CMD [ "npm", "start"]
-EXPOSE 3000

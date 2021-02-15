@@ -16,7 +16,7 @@ const { Sequelize } = require("sequelize");
 // });
 
 const db = new Sequelize("sgt", "root", process.env.password, {
-  host: "172.17.0.2",
+  host: "172.19.0.3",
   port: "3306",
   dialect: "mysql",
 });
